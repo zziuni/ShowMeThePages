@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+<head>
+    <meta charset="utf-8">
+    <title>self slide</title>
+    <link href='http://api.mobilis.co.kr/webfonts/css/?fontface=NanumGothicExtraBoldWeb' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <link rel="stylesheet" href="lib/zenburn.css">
+</head>
+<body>
+    <div id="reveal">
+        <div class="slides">
+            <section>
+                <h1>테스트</h1>
+                <h3 class="inverted">A CSS 3D Slideshow</h3>
+            </section>
+            <section>Test2</section>
+            <section>Test3</section>
+        </div>
+        <aside class="controls">
+            <a class="left" href="#">&#x25C4;</a>
+            <a class="right" href="#">&#x25BA;</a>
+            <a class="up" href="#">&#x25B2;</a>
+            <a class="down" href="#">&#x25BC;</a>
+        </aside>
+
+        <!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+        <div class="progress"><span></span></div>
+
+    </div>
+
+    <script src="js/reveal.js"></script>
+    <script src="lib/highlight.js"></script>
+    <script type="text/javascript">
+        // Parse the query string into a key/value object
+        var query = {};
+        location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+            query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+        } );
+
+        Reveal.initialize({
+            // Display controls in the bottom right corner
+            controls: true,
+
+            // Display a presentation progress bar
+            progress: true,
+
+            // If true; each slide will be pushed to the browser history
+            history: true,
+
+            // Apply a 3D roll to links on hover
+            rollingLinks: true,
+
+            // UI style
+            theme: query.theme || 'neon', // default/neon
+
+            // Transition style
+            transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+        });
+
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

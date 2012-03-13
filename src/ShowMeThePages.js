@@ -7,9 +7,23 @@
  * Time: 오후 11:38˚
  */
 
+var smtp = (function(){
+    var _version = '0.1';
+    var testMethod1= function(){return _version;}
 
-var jsCodeTyper = {
-    foo: function(){
-        return 'foo';
+    var _this = {
+        version: _version,
+        init: init,
+        testMethod1 : testMethod1,
+        testMethod2 : testMethod2
+    };
+
+    function init(){
     }
-};
+
+    function testMethod2(){
+        return _version;
+    }
+
+    return _this;
+})();

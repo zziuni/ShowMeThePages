@@ -97,6 +97,31 @@
 
 			hljs.initHighlightingOnLoad();
 		</script>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript">
+            var speaker = io.connect( '/speaker', {
+                'reconnect': true, 'resource': 'socket.io'
+            } );
+            speaker.on( 'connect', function(){
+                console.log( 'connect to server' );
+                speaker.send( 'The phone conneted server', function(){
+                    //                console.log( '보냈음' )
+                } );
+            } );
 
+            speaker.on( 'message', function( msg ){
+                console.log( msg );
+            } );
+
+            speaker.on( 'create ball', function( data ){
+                console.log('create ball');
+                createBall();
+            } );
+
+            function test(){
+                speaker.emit('good slid', {});
+            }
+
+        </script>
 	</body>
 </html>

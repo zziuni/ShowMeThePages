@@ -13,11 +13,10 @@
 </div>
 <script type="text/javascript">
     window.onload = function(){
-        var socket = io.connect( 'http://localhost:3000',  {
+        var socket = io.connect( '',  {
             'reconnect': true, 'resource': 'socket.io'
         } );
         socket.on( 'connect', function(){
-            alert('connect');
             printMessage( 'connect to server' );
             socket.send( 'The phone conneted server', function(){
 //                console.log( '보냈음' )

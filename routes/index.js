@@ -5,16 +5,15 @@
 var jqtpl = require('jqtpl');
 
 exports.index = function(req, res){
-    res.render('index', { title: 'Express' })
+    res.render('index', { title: 'Express', menu1Cls: 'active'})
 };
 
 exports.show = function( req, res ){
-    res.render( 'show', {title: 'show page', name: 'this name'} );
+    res.render( 'show', {title: 'show page', menu2Cls: 'active', name: 'this name'} );
 };
 
 exports.shows = function(req, res){
-//    res.send('shows page', {title: 'show Page'});
-    res.render( 'show.html', {title: 'show'} );
+    res.render( 'show.html', {title: 'show', menu4Cls: 'active'} );
 };
 
 exports.getShow = function(req, res){

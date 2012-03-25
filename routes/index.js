@@ -26,5 +26,16 @@ exports.getShow = function(req, res){
 };
 
 exports.testting = function(req, res){
-    res.render('test', {title: 'test', name:'test'});
+    res.render('test',
+        {
+            test01:'1test',
+            test02: function(){
+                return 1 + 3;
+            },
+            test03: 'notest',
+            test04: ['a', 'b', 'c', 'd'],
+            test05: '<div id="test">test</div>'
+        }
+
+    );
 };

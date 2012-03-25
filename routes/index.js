@@ -34,7 +34,8 @@ exports.testting = function(req, res){
             },
             test03: 'notest',
             test04: ['a', 'b', 'c', 'd'],
-            test05: '<div id="test">test</div>'
+            test05: '<div id="test">test</div>',
+            test06: {name: 'name', url: 'google.com'}
         }
 
     );

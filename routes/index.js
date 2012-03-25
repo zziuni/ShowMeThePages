@@ -24,6 +24,18 @@ exports.getShow = function(req, res){
 
 };
 
+exports.newSlide = function(req, res){
+    res.render('newSlide', {title: 'New Slide', menu3Cls: 'active'});
+};
+
+exports.slides = function(req, res){
+    res.render( 'slides', {title: 'Slide List', menu4Cls: 'active'} );
+};
+
+exports.editSlide = function(req, res){
+    res.render( 'editSlide', {title: 'Edit Slide', menu2Cls: 'active'} );
+};
+
 exports.testting = function(req, res){
     res.render('test',
         {

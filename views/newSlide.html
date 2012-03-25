@@ -1,2 +1,56 @@
 {{layout "layout"}}
-<h1>new Slide</h1>
+<link rel="stylesheet" href="/lib/codemirror-2.22/lib/codemirror.css">
+<script src="/lib/codemirror-2.22/lib/codemirror.js"></script>
+<script src="/lib/codemirror-2.22/mode/xml/xml.js"></script>
+<script src="/lib/codemirror-2.22/mode/markdown/markdown.js"></script>
+<style type="text/css">.CodeMirror {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}</style>
+<header>
+    <h1>new Slide</h1>
+
+    <form action="" mode="post">
+        <input type="text" placeholder="Slide title...">
+        <textarea name="code" id="code" cols="30" rows="10">
+# Slide one title
+
+some **content**...
+
+# Slide two title
+
+* unit 1
+* unit 2
+* unit 3
+
+# Slide three title
+
+> some conent...
+
+# Slide four title
+
+## Sub Slide title 1
+
+    var foo = 'some string';
+    for( var i=0; i<len; i++){
+        /// code...
+    }
+
+## Sub Slide Title 2
+
+some **content**...
+        </textarea>
+
+        <button class="btn btn-large btn-primary" type="submit">Save</button>
+        <button class="btn btn-large " type="button">Cancel</button>
+    </form>
+</header>
+<script type="text/javascript" src="./ShowMeThePages.js"></script>
+<script>
+    var editor = CodeMirror.fromTextArea( document.getElementById( "code" ), {
+        mode: 'markdown',
+        lineNumbers: true,
+        matchBrackets: true,
+        theme: "default"
+    } );
+</script>

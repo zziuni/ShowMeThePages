@@ -40,6 +40,10 @@ exports.showSlide = function(req, res){
     res.render('showSlide', {title: 'title'});
 };
 
+exports.mobilePoll = function(req, res){
+    res.render('mobilePoll', {title: 'title'});
+};
+
 exports.testting = function(req, res){
     res.render('test',
         {

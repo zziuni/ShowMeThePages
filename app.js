@@ -55,8 +55,7 @@ app.get('/newSlide', routes.newSlide);
 app.get('/slides', routes.slides);
 app.get('/editSlide/:slideId', routes.editSlide);
 app.get('/slide/:slideId', routes.showSlide);
-
-
+app.get('/m/:slideId', routes.mobilePoll);
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

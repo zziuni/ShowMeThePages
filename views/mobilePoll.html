@@ -1,0 +1,57 @@
+{{layout "layout"}}
+    <header>
+        <h1>Mobile</h1>
+    </header>
+    <div class="qr"></div>
+    <div class="row">
+        <div class="span12 well">
+            <button id="good" class="btn btn-success btn-large">Good~</button>
+        </div>
+        <div id="message" class="span12 well">Loading...</div>
+    </div>
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+    window.onload = function(){
+        var socket = io.connect( '', {
+            'reconnect': true, 'resource': 'socket.io'
+        } );
+        socket.on( 'connect', function(){
+            printMessage( 'connect to server' );
+            socket.send( 'The phone conneted server', function(){
+                //                console.log( '보냈음' )
+            } );
+        } );
+
+        socket.on( 'message', function( msg ){
+            printMessage( msg );
+        } );
+
+        socket.on( 'think you', function( data ){
+            printMessage( data.text );
+        } );
+
+
+        var btn = document.getElementsByTagName( 'button' )[0];
+        btn.addEventListener( 'click', function(){
+            //            console.log( 'click' );
+            socket.emit( 'good slid', {good: true, text: 'good!!!'} )
+        } );
+
+
+        //utillity
+        var contents = document.getElementById( 'message' );
+
+        function printMessage( msg ){
+            var text = contents.innerText;
+            if( text=="Loading..." ){
+                contents.textContent = '';
+            }
+            var el = document.createElement( 'div' );
+            el.textContent = msg;
+            //            el.innerHTML = msg;
+            contents.appendChild( el );
+        }
+    };
+
+</script>

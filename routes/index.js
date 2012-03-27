@@ -36,6 +36,10 @@ exports.editSlide = function(req, res){
     res.render( 'editSlide', {title: 'Edit Slide', menu2Cls: 'active'} );
 };
 
+exports.showSlide = function(req, res){
+    res.render('showSlide', {title: 'title'});
+};
+
 exports.testting = function(req, res){
     res.render('test',
         {

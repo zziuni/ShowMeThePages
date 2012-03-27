@@ -54,6 +54,7 @@ app.get('/test', routes.testting);
 app.get('/newSlide', routes.newSlide);
 app.get('/slides', routes.slides);
 app.get('/editSlide/:slideId', routes.editSlide);
+app.get('/slide/:slideId', routes.showSlide);
 
 
 

@@ -28,6 +28,7 @@ html, body {
 	overflow: hidden;
 	
 	font-family: 'NanumGothicExtraBoldWeb', Times, 'Times New Roman', serif;
+    /*font-family: 'Lato', Times, 'Times New Roman', serif;*/
 	font-size: 36px;
 	font-weight: 200;
 	letter-spacing: -0.02em;
@@ -63,10 +64,11 @@ html {
 	color: #eee;
 	
 	font-family: 'League Gothic', sans-serif;
-	line-height: 0.9em;
+	line-height: 1.4em;
 	letter-spacing: 0.02em;
+	font-weight: bold;
 	
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	text-shadow: 0px 0px 6px rgba(0,0,0,0.2);
 }
 
@@ -83,7 +85,8 @@ html {
 	text-shadow: 0px 0px 2px rgba(0,0,0,0.2);
 }
 
-#reveal h1 {
+#reveal h1,
+#reveal h2 {
 	text-shadow: 0 1px 0 #ccc,
                  0 2px 0 #c9c9c9,
                  0 3px 0 #bbb,
@@ -821,7 +824,8 @@ html {
 
 #reveal.neon a,
 #reveal.neon a:hover,
-#reveal.neon .controls a.enabled {
+#reveal.neon .controls a.enabled,
+strong {
 	color: #5de048;
 }
 
@@ -873,3 +877,12 @@ html {
 }
 
 
+#speech-input {
+    width: 400px;
+    height: 50px;
+    padding: 10px 15px;
+    font-size: 135%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: 0;
+}

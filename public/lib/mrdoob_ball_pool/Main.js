@@ -46,7 +46,7 @@ function init() {
 	document.onmousedown = onDocumentMouseDown;
 	document.onmouseup = onDocumentMouseUp;
 	document.onmousemove = onDocumentMouseMove;
-	document.ondblclick = onDocumentDoubleClick;
+//	document.ondblclick = onDocumentDoubleClick;
 
 	document.addEventListener( 'touchstart', onDocumentTouchStart, false );
 	document.addEventListener( 'touchmove', onDocumentTouchMove, false );
@@ -71,7 +71,7 @@ function play() {
     //TODO: change requestRunProject.
     //TODO: change remove timer.
 	setInterval( loop, 1000 / 40 );
-	setInterval( removeBall, 200000);
+	setInterval( removeBall, 1000*60*2);
 
 }
 
@@ -234,7 +234,7 @@ function createInstructions() {
 
 	text = document.createElement( 'div' );
 	text.onSelectStart = null;
-	text.innerHTML = '<span style="color:' + theme[0] + ';font-size:40px;">내용이<br/> 좋으면<br/> 눌러!</span>';
+	text.innerHTML = '<span style="color:' + theme[0] + ';font-size:40px;">내용이<br/> 좋으면<br/> 눌러요!</span>';
 	text.style.color = theme[1];
 	text.style.position = 'absolute';
 	text.style.left = '0px';
@@ -384,7 +384,7 @@ function mouseDrag()
 	// mouse press
 	if (createMode) {
 
-		createBall( mouse.x, mouse.y );
+		//createBall( mouse.x, mouse.y );
 
 	} else if (isMouseDown && !mouseJoint) {
 

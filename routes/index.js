@@ -39,7 +39,7 @@ exports.editSlide = function(req, res){
 exports.showSlide = function(req, res){
     res.render('showSlide',
         {
-            title: req.params.slideId + ' slide',
+            title: 'Slide Title',
             slideId: req.params.slideId,
             serviceDomain: req.header('host')
         });

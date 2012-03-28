@@ -111,3 +111,8 @@ io.sockets.on( 'connection', function( socket ){
         socket.emit( 'think you', { text: 'server: think you'} );
     } );
 } );
+
+
+//Data
+var mongo = require('./data_mongo');
+//var db = mongo.createConnect();

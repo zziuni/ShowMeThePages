@@ -59,3 +59,55 @@ app.get('/m/:slideId', routes.mobilePoll);
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+
+//socket.io
+var http = require( 'http' )
+        , fs = require( 'fs' )
+        , path = require( 'path' )
+        , io = require( 'socket.io' );
+
+io = io.listen( app) ;
+
+io.configure( function(){
+    io.enable( 'browser client etag' );
+    io.set( 'log level', 3 );
+    io.set( 'transports', [
+        'websocket'
+        , 'flashsocket'
+        , 'htmlfile'
+        , 'xhr-polling'
+        , 'jsonp-polling'
+    ] );
+} );
+
+var speakerSocket;
+io.of( '/speaker' ).on( 'connection', function( socket ){
+    console.log( '=====A speaker connected..' );
+    socket.on( 'disconnect', function(){
+        console.log( '-----A speaker disconnect.' );
+    } );
+
+    socket.on( 'good slid', function( data ){
+        console.log( 'spearker good slid' );
+        socket.emit( 'create ball', {} );
+    } );
+    speakerSocket = socket;
+} );
+
+io.sockets.on( 'connection', function( socket ){
+    console.log( '=====A phone connected..' );
+    socket.on( 'disconnect', function(){
+        console.log( '-----A phone disconnect.' );
+    } );
+
+    socket.on( 'message', function( msg ){
+        console.log( msg );
+        socket.send( 'server: ok.' );
+    } );
+
+    socket.on( 'good slid', function( data ){
+        console.log( data.text );
+        speakerSocket.emit( 'create ball', {} );
+        socket.emit( 'think you', { text: 'server: think you'} );
+    } );
+} );

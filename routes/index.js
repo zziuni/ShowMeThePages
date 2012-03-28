@@ -37,7 +37,12 @@ exports.editSlide = function(req, res){
 };
 
 exports.showSlide = function(req, res){
-    res.render('showSlide', {title: 'title'});
+    res.render('showSlide',
+        {
+            title: req.params.slideId + ' slide',
+            slideId: req.params.slideId,
+            serviceDomain: req.header('host')
+        });
 };
 
 exports.mobilePoll = function(req, res){

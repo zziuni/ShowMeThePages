@@ -42,8 +42,8 @@ var server = new mongo();
 var db = server.db("smtp_db");
 var slideshows = db.collection("slideshows");
 
-exports.slideshow = {
-    "title" : '1',
+var slideshow = module.exprots = {
+    "title" : '',
     "mdContents" : '',
     "htmlContents" : '',
     "createdDate" : '',
@@ -51,15 +51,29 @@ exports.slideshow = {
     "pwd" : ''
 };
 
-exports.insert = function( slideshow, callback ){
-    if(!slideshow){return;}
-//    console.log(slideshows);
-    slideshows.insert( slideshow );
+exports.insert = function( input, callback ){
+    if(!input){return;}
+    var slideshow = {
+        "title" : input.title,
+        "mdContents" : input.mdContents,
+        "htmlContents" : '',
+        "createdDate" : new Date(),
+        "modifiedDate" : '',
+        "pwd" : ''
+    };
+
+    slideshows.insert( slideshow, function(err, value){ console.log(err)} );
     callback();
 };
 
-exports.selectAll = function( ){
-    return slideshows.find();
+exports.selectAll = function( callback ){
+    var result = [];
+    slideshows.find({},{"title": 1,"createdDate" : 1, "modifiedDate" : 1} ).sort({createdDate: -1})
+        .toArray(function(err, data){
+            console.log("data.length=" + data.length);
+            callback(data);
+        }
+    );
 };
 
 exports.select = function( query ){

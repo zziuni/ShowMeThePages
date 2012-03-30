@@ -29,9 +29,10 @@ exports.newSlide = function(req, res){
 };
 
 exports.slides = function(req, res){
-    var slideshows = require('../data_mongo').insert(req.body, function(){} );
-    console.log(slideshows);
-    res.render( 'slides', {title: 'Slide List', menu4Cls: 'active'} );
+    var slideshows = require('../data_mongo').selectAll(function( data ){
+        res.render( 'slides', {title: 'Slide List', menu4Cls: 'active', slideshows: data } );
+    });
+
 };
 
 exports.editSlide = function(req, res){

@@ -99,6 +99,7 @@ exports.update = function( source, callback ){
         console.log(target);
         target.title = source.title;
         target.mdContents = source.mdContents;
+        target.modifiedDate = new Date();
         slideshows.update({"_id": sid }, target, function(err, result){
             callback(result);
         });

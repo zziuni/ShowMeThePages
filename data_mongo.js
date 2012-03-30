@@ -8,6 +8,28 @@ var mongo= require('mongolian');
 
 var server = new mongo();
 
+//document define
+/*
+{
+    "id" : '',
+    "title" : '',
+    "mdContent" : '',
+    "htmlContent" : '',
+    "createdDate" : '',
+    "modifiedDate" : '',
+    "pwd" : '',
+    "showLog" : [
+        {
+            "shownDate" : '',
+            "googCount" : '',
+            "badCount" : ''
+        }
+    ]
+}
+
+*/
+
+
 /*
 // Get database
 var db = server.db("awesome_blog")

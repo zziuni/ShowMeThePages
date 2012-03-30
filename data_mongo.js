@@ -27,18 +27,53 @@ var server = new mongo();
     ]
 }
 
+{
+    "title" : 'test 2',
+    "mdContent" : '2',
+    "htmlContent" : '2',
+    "createdDate" : '2',
+    "modifiedDate" : '2',
+    "pwd" : '',
+}
+
 */
 
+//Get database
+var db = server.db("smtp_db");
+var slideshows = db.collection("slideshows");
+
+exports.slideshow = {
+    "title" : 'test 2',
+    "mdContent" : '2',
+    "htmlContent" : '2',
+    "createdDate" : '2',
+    "modifiedDate" : '2',
+    "pwd" : ''
+};
+
+exports.insert = function( slideshow ){
+    if(!slideshow){return;}
+    slideshows.insert( slideshow );
+};
+
+exports.selectAll = function( ){
+    return slideshows.find();
+};
+
+exports.select = function( query ){
+    return slideshows.findOne( query );
+};
+
+exports.remove = function( query ){
+    return slideshows.remove( query );
+};
+
+exports.update = function( query, data ){
+    return slideshows.update( query, data );
+};
 
 /*
-// Get database
-var db = server.db("awesome_blog")
-
-// Get some collections
-var posts = db.collection("posts")
-var comments = db.collection("comments")
-
-// Insert some data
+ // Insert some data
 posts.insert({
     pageId: "hallo",
     title: "Hallo",

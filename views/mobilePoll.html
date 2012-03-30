@@ -18,7 +18,7 @@
         } );
         socket.on( 'connect', function(){
             printMessage( 'connect to server' );
-            socket.send( 'The phone conneted server', function(){
+            socket.send( 'a phone conneted server', function(){
                 //                console.log( '보냈음' )
             } );
         } );
@@ -34,22 +34,16 @@
 
         var btn = document.getElementsByTagName( 'button' )[0];
         btn.addEventListener( 'click', function(){
-            //            console.log( 'click' );
-            socket.emit( 'good slid', {good: true, text: 'good!!!'} )
+            socket.emit( 'good slide', {good: true, text: 'good!!!'} )
         } );
-
 
         //utillity
         var contents = document.getElementById( 'message' );
-
         function printMessage( msg ){
             var text = contents.innerText;
-            if( text=="Loading..." ){
-                contents.textContent = '';
-            }
+            if( text=="Loading..." ){ contents.textContent = ''; }
             var el = document.createElement( 'div' );
             el.textContent = msg;
-            //            el.innerHTML = msg;
             contents.appendChild( el );
         }
     };

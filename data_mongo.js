@@ -6,9 +6,9 @@
  */
 var mongo= require('mongolian');
 
+var server = new mongo();
 
-var server = new mongo;
-
+/*
 // Get database
 var db = server.db("awesome_blog")
 
@@ -41,3 +41,5 @@ posts.find({ title: /^hal/ }).forEach(function (post) {
 
 
 //exports.createConnect = createConnect;
+
+*/

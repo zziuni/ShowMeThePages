@@ -82,31 +82,30 @@ io.configure( function(){
 
 var speakerSocket;
 io.of( '/speaker' ).on( 'connection', function( socket ){
-    console.log( '=====A speaker connected..' );
+    console.log( '=> A speaker connected..' );
     socket.on( 'disconnect', function(){
-        console.log( '-----A speaker disconnect.' );
+        console.log( '=> A speaker disconnect.' );
     } );
 
     socket.on( 'good slid', function( data ){
-        console.log( 'spearker good slid' );
+        console.log( '=> spearker good slid' );
         socket.emit( 'create ball', {} );
     } );
     speakerSocket = socket;
 } );
 
 io.sockets.on( 'connection', function( socket ){
-    console.log( '=====A phone connected..' );
+    console.log( '-> A phone connected..' );
     socket.on( 'disconnect', function(){
-        console.log( '-----A phone disconnect.' );
+        console.log( '-> A phone disconnect.' );
     } );
 
     socket.on( 'message', function( msg ){
-        console.log( msg );
+        console.info( 'from phone : ' + msg );
         socket.send( 'server: ok.' );
     } );
 
-    socket.on( 'good slid', function( data ){
-        console.log( data.text );
+    socket.on( 'good slide', function( data ){
         speakerSocket.emit( 'create ball', {} );
         socket.emit( 'think you', { text: 'server: think you'} );
     } );
@@ -115,4 +114,3 @@ io.sockets.on( 'connection', function( socket ){
 
 //Data
 var mongo = require('./data_mongo');
-//var db = mongo.createConnect();

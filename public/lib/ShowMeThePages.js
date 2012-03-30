@@ -27,7 +27,10 @@ var smtp = (function(){
             var id = $(this).attr('data-id');
             location.href = '/editSlide/' + id;
         } );
-
+        $('.show').on('click', function(){
+            var id = $(this).attr('data-id');
+            location.href = '/slide/' + id;
+        } );
     }
 
     function testMethod2(){

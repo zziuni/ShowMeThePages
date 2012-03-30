@@ -49,12 +49,22 @@ exports.updateSlide = function(req, res){
 };
 
 exports.showSlide = function(req, res){
-    res.render('showSlide',
+
+    require('../data_mongo').select(req.params.slideId, function(data){
+        var ghm = require("github-flavored-markdown");
+        var htmlContents = ghm.parse(data.mdContents);
+        htmlContents = htmlContents.replace(/<hr \/>/gi, "</section>\n<section>");
+        htmlContents  = "<Section>" + htmlContents  + "</Section>"
+        console.log(htmlContents);
+        res.render('showSlide',
         {
             title: 'Slide Title',
             slideId: req.params.slideId,
-            serviceDomain: req.header('host')
+            serviceDomain: req.header('host'),
+            slideTitle: data.title,
+            contents: htmlContents
         });
+    });
 
 };
 

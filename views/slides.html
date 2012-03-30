@@ -8,6 +8,8 @@
             <td>Title</td>
             <td>Create</td>
             <td>Modified</td>
+            <td></td>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +19,13 @@
             <td>${title}</td>
             <td>${createdDate}</td>
             <td>${modifiedDate}</td>
+            <td>
+                <button class="btn btn-warning">Edit</button>
+                <button class="btn btn-inverse">Delete</button>
+            </td>
+            <td>
+                <button class="btn btn-primary">Show</button>
+            </td>
         </tr>
     {{/each}}
     </tbody>

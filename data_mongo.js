@@ -42,15 +42,6 @@ var server = new mongo();
 var db = server.db("smtp_db");
 var slideshows = db.collection("slideshows");
 
-var slideshow = module.exprots = {
-    "title" : '',
-    "mdContents" : '',
-    "htmlContents" : '',
-    "createdDate" : '',
-    "modifiedDate" : '',
-    "pwd" : ''
-};
-
 exports.insert = function( input, callback ){
     if(!input){return;}
     var slideshow = {

@@ -29,6 +29,8 @@ exports.newSlide = function(req, res){
 };
 
 exports.slides = function(req, res){
+    var slideshows = require('../data_mongo').insert(req.body, function(){} );
+    console.log(slideshows);
     res.render( 'slides', {title: 'Slide List', menu4Cls: 'active'} );
 };
 
@@ -43,6 +45,12 @@ exports.showSlide = function(req, res){
             slideId: req.params.slideId,
             serviceDomain: req.header('host')
         });
+
+};
+
+exports.insertSlide = function(req, res){
+    require('../data_mongo').insert(req.body, function(){} );
+    res.render( 'slides', {title: 'Slide List', menu4Cls: 'active'} );
 };
 
 exports.mobilePoll = function(req, res){

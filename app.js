@@ -50,6 +50,7 @@ app.get('/getShow/', routes.getShow);
 app.get('/test', routes.testting);
 
 app.get('/newSlide', routes.newSlide);
+app.post('/insertSlide', routes.insertSlide);
 app.get('/slides', routes.slides);
 app.get('/editSlide/:slideId', routes.editSlide);
 app.get('/slide/:slideId', routes.showSlide);
@@ -62,4 +63,7 @@ console.log("Express server listening on port %d in %s mode", app.address().port
 require('./socket.io').init(app);
 
 //Data
-var mongo = require('./data_mongo');
+//var mongo = require('./data_mongo');
+//console.log(mongo.slideshow);
+//mongo.insert(mongo.slideshow, function(){});
+//console.log(mongo.selectAll());

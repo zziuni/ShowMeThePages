@@ -43,17 +43,19 @@ var db = server.db("smtp_db");
 var slideshows = db.collection("slideshows");
 
 exports.slideshow = {
-    "title" : 'test 2',
-    "mdContent" : '2',
-    "htmlContent" : '2',
-    "createdDate" : '2',
-    "modifiedDate" : '2',
+    "title" : '1',
+    "mdContents" : '',
+    "htmlContents" : '',
+    "createdDate" : '',
+    "modifiedDate" : '',
     "pwd" : ''
 };
 
-exports.insert = function( slideshow ){
+exports.insert = function( slideshow, callback ){
     if(!slideshow){return;}
+//    console.log(slideshows);
     slideshows.insert( slideshow );
+    callback();
 };
 
 exports.selectAll = function( ){

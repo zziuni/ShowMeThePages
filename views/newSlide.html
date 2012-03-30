@@ -10,9 +10,9 @@
 <header>
     <h1>new Slide</h1>
 
-    <form action="" mode="post">
-        <input type="text" placeholder="Slide title...">
-        <textarea name="code" id="code" cols="30" rows="10">
+    <form action="/insertSlide" method="post">
+        <input name="title" type="text" placeholder="Slide title...">
+        <textarea name="mdContents" id="code" cols="30" rows="10">
 # Slide one title
 
 some **content**...

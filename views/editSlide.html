@@ -1,2 +1,31 @@
 {{layout "layout"}}
-<h1>Edit Slide</h1>
+<link rel="stylesheet" href="/lib/codemirror-2.22/lib/codemirror.css">
+<script src="/lib/codemirror-2.22/lib/codemirror.js"></script>
+<script src="/lib/codemirror-2.22/mode/xml/xml.js"></script>
+<script src="/lib/codemirror-2.22/mode/markdown/markdown.js"></script>
+<style type="text/css">.CodeMirror {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}</style>
+<header>
+    <h1>Edit Slide</h1>
+
+    <form action="/updateSlide" method="post">
+        <input name="title" type="text" value="${slideTitle}">
+        <input name="id" type="hidden" value="${id}">
+        <textarea name="mdContents" id="code" cols="30" rows="10">
+${mdContents}
+        </textarea>
+
+        <button class="btn btn-large btn-primary" type="submit">Update</button>
+        <button class="btn btn-large " type="button">Cancel</button>
+    </form>
+</header>
+<script>
+    var editor = CodeMirror.fromTextArea( document.getElementById( "code" ), {
+        mode: 'markdown',
+        lineNumbers: true,
+        matchBrackets: true,
+        theme: "default"
+    } );
+</script>

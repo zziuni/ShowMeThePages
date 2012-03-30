@@ -19,11 +19,21 @@ var smtp = (function(){
     };
 
     function init(){
+        $('.del').on('click', function(){
+            var id = $(this).attr('data-id');
+            location.href = '/remove/' + id;
+        } );
+        $('.edit').on('click', function(){
+            var id = $(this).attr('data-id');
+            location.href = '/editSlide/' + id;
+        } );
+
     }
 
     function testMethod2(){
         return _version;
     }
 
+    init();
     return _this;
 })();

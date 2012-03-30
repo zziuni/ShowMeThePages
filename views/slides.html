@@ -20,13 +20,20 @@
             <td>${createdDate}</td>
             <td>${modifiedDate}</td>
             <td>
-                <button class="btn btn-warning">Edit</button>
-                <button class="btn btn-inverse">Delete</button>
+                <button class="edit btn btn-warning" data-id="${_id}">Edit</button>
+                <button class="del btn btn-inverse" data-id="${_id}">Delete</button>
             </td>
             <td>
-                <button class="btn btn-primary">Show</button>
+                <button class="btn btn-primary" data-id="${_id}">Show</button>
             </td>
         </tr>
     {{/each}}
     </tbody>
 </table>
+
+<script type="text/javascript">
+function remove(){
+    console.log(this);
+}
+
+</script>

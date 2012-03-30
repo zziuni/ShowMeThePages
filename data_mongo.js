@@ -7,7 +7,7 @@
 var mongo= require('mongolian');
 
 var server = new mongo();
-
+var objectId = mongo.ObjectId;
 //document define
 /*
 {
@@ -59,7 +59,7 @@ exports.insert = function( input, callback ){
 
 exports.selectAll = function( callback ){
     var result = [];
-    slideshows.find({},{"title": 1,"createdDate" : 1, "modifiedDate" : 1} ).sort({createdDate: -1})
+    slideshows.find({},{"_id":1,"title": 1,"createdDate" : 1, "modifiedDate" : 1} ).sort({createdDate: -1})
         .toArray(function(err, data){
             console.log("data.length=" + data.length);
             callback(data);
@@ -67,16 +67,44 @@ exports.selectAll = function( callback ){
     );
 };
 
-exports.select = function( query ){
-    return slideshows.findOne( query );
+exports.select = function( slideId, callback ){
+    var sid = new objectId(slideId) ;
+    slideshows.findOne( {"_id": sid }, function(err, data){
+        if(err){ console.log( err ); }
+        callback(data)
+    });
 };
 
-exports.remove = function( query ){
-    return slideshows.remove( query );
+exports.remove = function( slideId, callback ){
+    var sid = new objectId(slideId) ;
+    slideshows.remove( {"_id": sid }, function(err, data){
+            if(err){ console.log(err);}
+            callback(data);
+        }
+    );
 };
 
-exports.update = function( query, data ){
-    return slideshows.update( query, data );
+exports.editSlide = function( slideId, callback){
+    var sid = new objectId(slideId) ;
+    slideshows.findOne( {"_id": sid }, function(err, data){
+        if(err){ console.log( err ); }
+        callback(data)
+    });
+};
+
+exports.update = function( source, callback ){
+
+    var sid = new objectId(source.id) ;
+    slideshows.findOne( {"_id": sid }, function(err, target){
+        console.log(target);
+        target.title = source.title;
+        target.mdContents = source.mdContents;
+        slideshows.update({"_id": sid }, target, function(err, result){
+            callback(result);
+        });
+
+    });
+
 };
 
 /*

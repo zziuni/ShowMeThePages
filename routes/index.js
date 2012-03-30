@@ -36,7 +36,16 @@ exports.slides = function(req, res){
 };
 
 exports.editSlide = function(req, res){
-    res.render( 'editSlide', {title: 'Edit Slide', menu2Cls: 'active'} );
+    require('../data_mongo').select(req.params.slideId, function(data){
+        res.render( 'editSlide', {title: 'Edit Slide', menu2Cls: 'active', id:data._id, slideTitle: data.title, mdContents: data.mdContents} ); //
+    });
+//res.render( 'editSlide', {title: 'Edit Slide', menu2Cls: 'active'} );
+};
+
+exports.updateSlide = function(req, res){
+    require('../data_mongo').update(req.body, function( data ){
+        res.render( 'updateSlide');
+    });
 };
 
 exports.showSlide = function(req, res){
@@ -52,6 +61,13 @@ exports.showSlide = function(req, res){
 exports.insertSlide = function(req, res){
     require('../data_mongo').insert(req.body, function(){} );
     res.render( 'insertSlide' );
+};
+
+exports.removeSlide = function(req, res){
+    require('../data_mongo').remove(req.params.slideId, function(){
+        console.log('remove');
+    });
+    res.render('removeSlide');
 };
 
 exports.mobilePoll = function(req, res){

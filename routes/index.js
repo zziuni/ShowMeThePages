@@ -50,7 +50,7 @@ exports.showSlide = function(req, res){
 
 exports.insertSlide = function(req, res){
     require('../data_mongo').insert(req.body, function(){} );
-    res.render( 'slides', {title: 'Slide List', menu4Cls: 'active'} );
+    res.render( 'insertSlide' );
 };
 
 exports.mobilePoll = function(req, res){

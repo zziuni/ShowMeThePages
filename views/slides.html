@@ -1,15 +1,14 @@
 {{layout "layout"}}
 <h1>Slides</h1>
 
-<table class="table table-striped table-bordered table-condensed">
+<table class="table table-striped ">
     <thead>
         <tr>
-            <td>no</td>
-            <td>Title</td>
-            <td>Create</td>
-            <td>Modified</td>
-            <td></td>
-            <td></td>
+            <th class="span1">no</th>
+            <th class="span5">Title</th>
+            <th class="span2">Create</th>
+            <th class="span2">Modified</th>
+            <th class="span2"></th>
         </tr>
     </thead>
     <tbody>
@@ -20,11 +19,16 @@
             <td>${createdDate}</td>
             <td>${modifiedDate}</td>
             <td>
-                <button class="edit btn btn-warning" data-id="${_id}">Edit</button>
-                <button class="del btn btn-inverse" data-id="${_id}">Delete</button>
-            </td>
-            <td>
-                <button class="show btn btn-primary" data-id="${_id}">Show</button>
+                <div class="btn-group">
+                  <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-list-alt icon-white"></i> Manager <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#" class="edit"data-id="${_id}"><i class="icon-pencil"></i> Edit</a></li>
+                    <li><a href="#" class="del"data-id="${_id}"><i class="icon-trash"></i> Delete</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/slide/${_id}" target="_blank"><i class="icon-film i"></i> Show</a></li>
+                  </ul>
+                </div>
+
             </td>
         </tr>
     {{/each}}

@@ -59,9 +59,19 @@ exports.insert = function( input, callback ){
 
 exports.selectAll = function( callback ){
     var result = [];
-    slideshows.find({},{"_id":1,"title": 1,"createdDate" : 1, "modifiedDate" : 1} ).sort({createdDate: -1})
+    slideshows.find({},{"_id":1,"title": 1,"createdDate" : 1, "modifiedDate" : 1} )
+        .sort({createdDate: -1})
         .toArray(function(err, data){
-            console.log("data.length=" + data.length);
+            var i, cdate, mdate;
+            for(i=data.length-1; i>=0; i-=1){
+//                console.log(date[i]);
+                cdate = data[i].createdDate;
+                mdate = data[i].modifiedDate;
+                data[i].createdDate = cdate.getFullYear() + '-' + cdate.getMonth() + '-' + cdate.getDate() + ' ' + cdate.toLocaleTimeString();
+                if(mdate){
+                    data[i].modifiedDate = mdate.getFullYear() + '-' + mdate.getMonth() + '-' + mdate.getDate() + ' ' + mdate.toLocaleTimeString();
+                }
+            }
             callback(data);
         }
     );

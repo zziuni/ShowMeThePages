@@ -49,23 +49,31 @@ exports.updateSlide = function(req, res){
 };
 
 exports.showSlide = function(req, res){
+    require('../data_mongo').select(req.params.slideId,
+        function(data){
+            var ghm = require("github-flavored-markdown");
+            var short = require('shorturl');
 
-    require('../data_mongo').select(req.params.slideId, function(data){
-        var ghm = require("github-flavored-markdown");
-        var htmlContents = ghm.parse(data.mdContents);
-        htmlContents = htmlContents.replace(/<hr \/>/gi, "</section>\n<section>");
-        htmlContents  = "<Section>" + htmlContents  + "</Section>"
-        console.log(htmlContents);
-        res.render('showSlide',
-        {
-            title: 'Slide Title',
-            slideId: req.params.slideId,
-            serviceDomain: req.header('host'),
-            slideTitle: data.title,
-            contents: htmlContents
-        });
-    });
+            var htmlContents = ghm.parse(data.mdContents);
+            htmlContents = htmlContents.replace(/<hr \/>/gi, "</section>\n<section>");
+            htmlContents  = "<Section>" + htmlContents  + "</Section>"
 
+            var mobileUrl = 'http://' + req.header('host') + '/m/' + req.params.slideId;
+            short(mobileUrl, function(shortUrl){
+                console.log(shortUrl);
+                res.render('showSlide',
+                {
+                    title: 'Slide Title',
+                    shortUrl: shortUrl,
+//                    slideId: req.params.slideId,
+//                    serviceDomain: req.header('host'),
+                    slideTitle: data.title,
+                    contents: htmlContents
+                });
+            });
+
+        }
+    );
 };
 
 exports.insertSlide = function(req, res){

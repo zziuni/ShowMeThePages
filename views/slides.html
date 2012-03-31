@@ -1,8 +1,9 @@
 {{layout "layout"}}
 <h1>Slides</h1>
 
-<table class="table table-striped ">
-    <thead>
+<div>
+    <table class="table table-striped ">
+        <thead>
         <tr>
             <th class="span1">no</th>
             <th class="span5">Title</th>
@@ -10,9 +11,9 @@
             <th class="span2">Modified</th>
             <th class="span2"></th>
         </tr>
-    </thead>
-    <tbody>
-    {{each(i, slideshow) slideshows}}
+        </thead>
+        <tbody>
+        {{each(i, slideshow) slideshows}}
         <tr>
             <td>${i+1}</td>
             <td>${title}</td>
@@ -20,20 +21,36 @@
             <td>${modifiedDate}</td>
             <td>
                 <div class="btn-group">
-                  <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-list-alt icon-white"></i> Manager <span class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#" class="edit"data-id="${_id}"><i class="icon-pencil"></i> Edit</a></li>
-                    <li><a href="#" class="del"data-id="${_id}"><i class="icon-trash"></i> Delete</a></li>
-                    <li class="divider"></li>
-                    <li><a href="/slide/${_id}" target="_blank"><i class="icon-film i"></i> Show</a></li>
-                  </ul>
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-list-alt icon-white"></i> Manager <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="edit"data-id="${_id}"><i class="icon-pencil"></i> Edit</a></li>
+                        <li><a href="#delModal" class="del" data-id="${_id}" data-toggle="modal"><i class="icon-trash"></i> Delete</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/slide/${_id}" target="_blank"><i class="icon-film i"></i> Show</a></li>
+                    </ul>
                 </div>
 
             </td>
         </tr>
-    {{/each}}
-    </tbody>
-</table>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<div id="delModal" class="modal hide fade">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h4>지울거?</h4>
+    </div>
+    <div class="modal-body">
+        <p>복구안됨</p>
+    </div>
+    <div class="modal-footer">
+        <a class="btn" href="#">아니오</a>
+        <a class="btn btn-primary submitDel" href="#">제거</a>
+    </div>
+</div>
+
 
 <script type="text/javascript">
 function remove(){

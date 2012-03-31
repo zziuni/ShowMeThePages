@@ -21,12 +21,20 @@ var smtp = (function(){
     function init(){
         $('.del').on('click', function(){
             var id = $(this).attr('data-id');
-            location.href = '/remove/' + id;
+            $('.submitDel').attr('data-id', id);
         } );
         $('.edit').on('click', function(){
             var id = $(this).attr('data-id');
             location.href = '/editSlide/' + id;
         } );
+        $('.submitDel').on('click', function(){
+            var id = $(this).attr('data-id');
+            $('#delModal').modal('hide');
+            location.href = '/remove/' + id;
+        });
+        $('#delModal .submitDel').prev().on('click', function(){
+            $('#delModal').modal('hide');
+        })
     }
 
     function testMethod2(){

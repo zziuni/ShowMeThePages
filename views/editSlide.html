@@ -3,22 +3,51 @@
 <script src="/lib/codemirror-2.22/lib/codemirror.js"></script>
 <script src="/lib/codemirror-2.22/mode/xml/xml.js"></script>
 <script src="/lib/codemirror-2.22/mode/markdown/markdown.js"></script>
-<style type="text/css">.CodeMirror {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-}</style>
+<style type="text/css">
+    .CodeMirror {
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+    .activeline {background: #e8f2ff !important;}
+    .CodeMirror-fullscreen {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        margin: 0;
+        padding: 0;
+        border: 0px solid #BBBBBB;
+        opacity: 1;
+    }
+</style>
 <header>
     <h1>Edit Slide</h1>
 
     <form action="/updateSlide" method="post">
-        <input name="title" type="text" value="${slideTitle}">
-        <input name="id" type="hidden" value="${id}">
-        <textarea name="mdContents" id="code" cols="30" rows="10">
-${mdContents}
-        </textarea>
+        <div class="control-group">
+            <input name="title" type="text" value="${slideTitle}" class="span12">
+            <input name="id" type="hidden" value="${id}">
+            <div class="alert alert-info">
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+                <strong>Editor Tip</strong>
 
-        <button class="btn btn-large btn-primary" type="submit">Update</button>
-        <button class="btn btn-large " type="button">Cancel</button>
+                <p>
+                    <strong>F11 </strong>fullscreen.
+                    <strong>ESC </strong> fullscreen cancel.
+                </p>
+            </div>
+
+            <textarea name="mdContents" id="code" cols="30" rows="10">
+${mdContents}
+            </textarea>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-large btn-primary" type="submit">Update</button>
+            <button class="btn btn-large " type="button">Cancel</button>
+        </div>
     </form>
 </header>
 <script>

@@ -3,16 +3,45 @@
 <script src="/lib/codemirror-2.22/lib/codemirror.js"></script>
 <script src="/lib/codemirror-2.22/mode/xml/xml.js"></script>
 <script src="/lib/codemirror-2.22/mode/markdown/markdown.js"></script>
-<style type="text/css">.CodeMirror {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-}</style>
+<link rel="stylesheet" href="/lib/codemirror-2.22/theme.night.css">
+<style type="text/css">
+    .CodeMirror {
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+    .activeline {background: #e8f2ff !important;}
+    .CodeMirror-fullscreen {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        margin: 0;
+        padding: 0;
+        border: 0px solid #BBBBBB;
+        opacity: 1;
+    }
+</style>
 <header>
-    <h1>new Slide</h1>
-
+    <h1>New Slide</h1>
+</header>
+<div>
     <form action="/insertSlide" method="post">
-        <input name="title" type="text" placeholder="Slide title...">
-        <textarea name="mdContents" id="code" cols="30" rows="10">
+        <div class="control-group">
+            <input name="title" type="text" class="span12" placeholder="Slide Title...">
+
+            <div class="alert alert-info">
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+                <strong>Editor Tip</strong>
+
+                <p>
+                    <strong>F11 </strong>fullscreen.
+                    <strong>ESC </strong> fullscreen cancel.
+                </p>
+            </div>
+            <textarea name="mdContents" id="code" cols="30" rows="20">
 # Slide one title
 
 some **content**...
@@ -49,18 +78,53 @@ some **content**...
 ## Sub Slide Title 2
 
 some **content**...
-        </textarea>
-
-        <button class="btn btn-large btn-primary" type="submit">Save</button>
-        <button class="btn btn-large " type="button">Cancel</button>
+            </textarea>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-large btn-primary" type="submit">Save</button>
+            <button class="btn btn-large " type="button">Cancel</button>
+        </div>
     </form>
-</header>
+</div>
+
 <script type="text/javascript" src="./ShowMeThePages.js"></script>
 <script>
     var editor = CodeMirror.fromTextArea( document.getElementById( "code" ), {
         mode: 'markdown',
         lineNumbers: true,
         matchBrackets: true,
-        theme: "default"
+        theme: "default",
+        onCursorActivity: function() {
+            editor.setLineClass(hlLine,  null);
+            hlLine = editor.setLineClass(editor.getCursor().line, "activeline");
+        },
+        extraKeys: {
+            "F11": function() {
+              var scroller = editor.getScrollerElement();
+              if (scroller.className.search(/\bCodeMirror-fullscreen\b/) === -1) {
+                scroller.className += " CodeMirror-fullscreen";
+                scroller.style.height = "100%";
+                scroller.style.width = "100%";
+                editor.refresh();
+              } else {
+                scroller.className = scroller.className.replace(" CodeMirror-fullscreen", "");
+                scroller.style.height = '';
+                scroller.style.width = '';
+                editor.refresh();
+              }
+            },
+            "Esc": function() {
+              var scroller = editor.getScrollerElement();
+              if (scroller.className.search(/\bCodeMirror-fullscreen\b/) !== -1) {
+                scroller.className = scroller.className.replace(" CodeMirror-fullscreen", "");
+                scroller.style.height = '';
+                scroller.style.width = '';
+                editor.refresh();
+              }
+            }
+        }
     } );
+
+    var hlLine = editor.setLineClass(0, "activeline");
+
 </script>

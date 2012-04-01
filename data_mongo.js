@@ -63,13 +63,15 @@ exports.selectAll = function( callback ){
         .sort({createdDate: -1})
         .toArray(function(err, data){
             var i, cdate, mdate;
-            for(i=data.length-1; i>=0; i-=1){
-//                console.log(date[i]);
-                cdate = data[i].createdDate;
-                mdate = data[i].modifiedDate;
-                data[i].createdDate = cdate.getFullYear() + '-' + cdate.getMonth() + '-' + cdate.getDate() + ' ' + cdate.toLocaleTimeString();
-                if(mdate){
-                    data[i].modifiedDate = mdate.getFullYear() + '-' + mdate.getMonth() + '-' + mdate.getDate() + ' ' + mdate.toLocaleTimeString();
+            if(data){
+                for(i=data.length-1; i>=0; i-=1){
+    //                console.log(date[i]);
+                    cdate = data[i].createdDate;
+                    mdate = data[i].modifiedDate;
+                    data[i].createdDate = cdate.getFullYear() + '-' + cdate.getMonth() + '-' + cdate.getDate() + ' ' + cdate.toLocaleTimeString();
+                    if(mdate){
+                        data[i].modifiedDate = mdate.getFullYear() + '-' + mdate.getMonth() + '-' + mdate.getDate() + ' ' + mdate.toLocaleTimeString();
+                    }
                 }
             }
             callback(data);

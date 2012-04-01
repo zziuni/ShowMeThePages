@@ -27,15 +27,6 @@ var objectId = mongo.ObjectId;
     ]
 }
 
-{
-    "title" : 'test 2',
-    "mdContent" : '2',
-    "htmlContent" : '2',
-    "createdDate" : '2',
-    "modifiedDate" : '2',
-    "pwd" : '',
-}
-
 */
 
 //Get database
@@ -65,7 +56,6 @@ exports.selectAll = function( callback ){
             var i, cdate, mdate;
             if(data){
                 for(i=data.length-1; i>=0; i-=1){
-    //                console.log(date[i]);
                     cdate = data[i].createdDate;
                     mdate = data[i].modifiedDate;
                     data[i].createdDate = cdate.getFullYear() + '-' + cdate.getMonth() + '-' + cdate.getDate() + ' ' + cdate.toLocaleTimeString();

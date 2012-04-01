@@ -3,25 +3,19 @@
  * GET home page.
  */
 var jqtpl = require('jqtpl');
-
+/*
+ editSlide
+ index
+ insertSlide
+ mobilePoll
+ newSlide
+ removeSlide
+ updateSlide
+ slides
+ showSlide
+ */
 exports.index = function(req, res){
-    res.render('index', { title: 'Express', menu1Cls: 'active'})
-};
-
-exports.show = function( req, res ){
-    res.render( 'show', {title: 'show page', menu2Cls: 'active', name: 'this name'} );
-};
-
-exports.shows = function(req, res){
-    res.render( 'show.html', {title: 'show', menu4Cls: 'active'} );
-};
-
-exports.getShow = function(req, res){
-    var tpl = '<div>${name}</div>';
-    jqtpl.template('getShow', tpl);
-    var result = jqtpl.tmpl('getShow', {name: 12333333});
-    res.send(result);
-
+    res.render('index', { title: 'SMTP Overview', menu1Cls: 'active'})
 };
 
 exports.newSlide = function(req, res){
@@ -39,7 +33,6 @@ exports.editSlide = function(req, res){
     require('../data_mongo').select(req.params.slideId, function(data){
         res.render( 'editSlide', {title: 'Edit Slide', menu2Cls: 'active', id:data._id, slideTitle: data.title, mdContents: data.mdContents} ); //
     });
-//res.render( 'editSlide', {title: 'Edit Slide', menu2Cls: 'active'} );
 };
 
 exports.updateSlide = function(req, res){
@@ -65,8 +58,6 @@ exports.showSlide = function(req, res){
                 {
                     title: 'Slide Title',
                     shortUrl: shortUrl,
-//                    slideId: req.params.slideId,
-//                    serviceDomain: req.header('host'),
                     slideTitle: data.title,
                     contents: htmlContents
                 });
@@ -90,20 +81,4 @@ exports.removeSlide = function(req, res){
 
 exports.mobilePoll = function(req, res){
     res.render('mobilePoll', {title: 'title'});
-};
-
-exports.testting = function(req, res){
-    res.render('test',
-        {
-            test01:'1test',
-            test02: function(){
-                return 1 + 3;
-            },
-            test03: 'notest',
-            test04: ['a', 'b', 'c', 'd'],
-            test05: '<div id="test">test</div>',
-            test06: {name: 'name', url: 'google.com'}
-        }
-
-    );
 };

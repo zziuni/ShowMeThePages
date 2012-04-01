@@ -2,7 +2,6 @@
 /**
  * Module dependencies.
  */
-
 var express = require('express')
   , routes = require('./routes');
 
@@ -44,10 +43,6 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', routes.index);
-app.get('/shows/:showId', routes.show);
-app.get('/shows', routes.shows);
-app.get('/getShow/', routes.getShow);
-app.get('/test', routes.testting);
 
 app.get('/newSlide', routes.newSlide);
 app.post('/insertSlide', routes.insertSlide);
@@ -63,9 +58,3 @@ console.log("Express server listening on port %d in %s mode", app.address().port
 
 //socket.io.js
 require('./socket.io').init(app);
-
-//Data
-//var mongo = require('./data_mongo');
-//console.log(mongo.slideshow);
-//mongo.insert(mongo.slideshow, function(){});
-//console.log(mongo.selectAll());

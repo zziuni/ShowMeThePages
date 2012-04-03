@@ -3,7 +3,6 @@
 <script src="/lib/codemirror-2.22/lib/codemirror.js"></script>
 <script src="/lib/codemirror-2.22/mode/xml/xml.js"></script>
 <script src="/lib/codemirror-2.22/mode/markdown/markdown.js"></script>
-<link rel="stylesheet" href="/lib/codemirror-2.22/theme.night.css">
 <style type="text/css">
     .CodeMirror {
         border-top: 1px solid black;
@@ -86,45 +85,3 @@ some **content**...
         </div>
     </form>
 </div>
-
-<script type="text/javascript" src="./ShowMeThePages.js"></script>
-<script>
-    var editor = CodeMirror.fromTextArea( document.getElementById( "code" ), {
-        mode: 'markdown',
-        lineNumbers: true,
-        matchBrackets: true,
-        theme: "default",
-        onCursorActivity: function() {
-            editor.setLineClass(hlLine,  null);
-            hlLine = editor.setLineClass(editor.getCursor().line, "activeline");
-        },
-        extraKeys: {
-            "F11": function() {
-              var scroller = editor.getScrollerElement();
-              if (scroller.className.search(/\bCodeMirror-fullscreen\b/) === -1) {
-                scroller.className += " CodeMirror-fullscreen";
-                scroller.style.height = "100%";
-                scroller.style.width = "100%";
-                editor.refresh();
-              } else {
-                scroller.className = scroller.className.replace(" CodeMirror-fullscreen", "");
-                scroller.style.height = '';
-                scroller.style.width = '';
-                editor.refresh();
-              }
-            },
-            "Esc": function() {
-              var scroller = editor.getScrollerElement();
-              if (scroller.className.search(/\bCodeMirror-fullscreen\b/) !== -1) {
-                scroller.className = scroller.className.replace(" CodeMirror-fullscreen", "");
-                scroller.style.height = '';
-                scroller.style.width = '';
-                editor.refresh();
-              }
-            }
-        }
-    } );
-
-    var hlLine = editor.setLineClass(0, "activeline");
-
-</script>

@@ -32,6 +32,7 @@ app.configure(function(){
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
+
 app.register( ".html", require( "jqtpl" ).express );
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
@@ -43,15 +44,14 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', routes.index);
-
 app.get('/newSlide', routes.newSlide);
-app.post('/insertSlide', routes.insertSlide);
 app.get('/slides', routes.slides);
 app.get('/editSlide/:slideId', routes.editSlide);
-app.post('/updateSlide', routes.updateSlide)
 app.get('/slide/:slideId', routes.showSlide);
 app.get('/m/:slideId', routes.mobilePoll);
 app.get('/remove/:slideId', routes.removeSlide);
+app.post('/insertSlide', routes.insertSlide);
+app.post('/updateSlide', routes.updateSlide)
 
 app.listen(3100);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

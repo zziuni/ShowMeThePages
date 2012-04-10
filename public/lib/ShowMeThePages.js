@@ -18,13 +18,13 @@ var smtp = (function(){
     var ROUTER = {
         INDEX: /^\/$/,
         SLIDES: /\/slides/,
-        SLIDE: '/slide',
+        SLIDE: /\/slide\//,
         EDIT: /\/editSlide/,
         WRITE: /\/newSlide/,
         LISTENER: /^\/m\//
     };
 
-    function getRouter(){
+    function getUrl(){
         var path = location.pathname;
         return path;
     }
@@ -48,6 +48,42 @@ var smtp = (function(){
         });
     }
 
+    function addEventListenerSlide(){
+        $().ready( function(){
+            //setting reveal.js
+            var query = {};
+            location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function( a ){
+                query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+            } );
+
+            Reveal.initialize( {
+                controls: true,
+                progress: true,
+                history: true,
+                rollingLinks: true,
+                theme: query.theme || 'default', // default || neon
+                transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+            } );
+
+            hljs.initHighlightingOnLoad();
+
+            //after load socket.io
+            var speaker = io.connect( '/speaker', {
+                'reconnect': true, 'resource': 'socket.io'
+            } );
+            speaker.on( 'connect', function(){
+                speaker.send( 'The phone conneted server', function(){
+                } );
+            } );
+
+            speaker.on( 'create ball', function( data ){
+                createBall();
+            } );
+
+
+        } );
+    }
+
     function addEventListenerWrite(){}
 
     function addEventListenerEdit(){}
@@ -61,15 +97,11 @@ var smtp = (function(){
             } );
             socket.on( 'connect', function(){
                 printMessage( 'connect to server' );
-                socket.send( 'a phone conneted server', function(){} );
+                socket.send( 'a phone connected to server', function(){} );
             } );
 
             socket.on( 'message', function( msg ){
                 printMessage( msg );
-            } );
-
-            socket.on( 'think you', function( data ){
-                printMessage( data.text );
             } );
 
             var btn = document.getElementsByTagName( 'button' )[0];
@@ -138,8 +170,7 @@ var smtp = (function(){
 
     function initEachPage( ){
         var r = ROUTER;
-        var router = getRouter();
-
+        var router = getUrl();
         if ( r.SLIDES.test( router )){
             addEventListenerSlides();
         }else if( r.WRITE.test( router ) ){
@@ -152,6 +183,8 @@ var smtp = (function(){
             addEventListenerIndex();
         }else if( r.LISTENER.test( router ) ){
             addEventListenerListener();
+        }else if( r.SLIDE.test( router ) ){
+            addEventListenerSlide();
         }
     }
 

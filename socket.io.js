@@ -11,8 +11,7 @@ var http = require( 'http' )
 
 var io;
 exports.init = function( app ){
-
-    io = sio.listen( app) ;
+    io = sio.listen( app ) ;
 
     io.configure( function(){
         io.enable( 'browser client etag' );
@@ -27,33 +26,38 @@ exports.init = function( app ){
     } );
 
     var speakerSocket;
-    io.of( '/speaker' ).on( 'connection', function( socket ){
+    io.of( '/speaker' ).on( 'connection', function( speaker ){
         console.log( '=> A speaker connected..' );
-        socket.on( 'disconnect', function(){
+
+        speaker.on( 'disconnect', function(){
             console.log( '=> A speaker disconnect.' );
         } );
 
-        socket.on( 'good slid', function( data ){
+        speaker.on( 'good slid', function( data ){
             console.log( '=> spearker good slid' );
-            socket.emit( 'create ball', {} );
+            speaker.emit( 'create ball', {} );
         } );
-        speakerSocket = socket;
+
+        speakerSocket = speaker;
     } );
 
-    io.sockets.on( 'connection', function( socket ){
+    io.sockets.on( 'connection', function( audience ){
         console.log( '-> A phone connected..' );
-        socket.on( 'disconnect', function(){
+
+        audience.on( 'disconnect', function(){
             console.log( '-> A phone disconnect.' );
         } );
 
-        socket.on( 'message', function( msg ){
+        audience.on( 'message', function( msg ){
             console.info( 'from phone : ' + msg );
-            socket.send( 'server: ok.' );
+            audience.send( 'server: ok.' );
         } );
 
-        socket.on( 'good slide', function( data ){
-            speakerSocket.emit( 'create ball', {} );
-            socket.emit( 'think you', { text: 'server: think you'} );
+        audience.on( 'good slide', function( data ){
+            if(speakerSocket){
+                speakerSocket.emit( 'create ball', {} );
+            }
+            audience.send( 'server: think you' );
         } );
     } );
 };

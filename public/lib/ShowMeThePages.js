@@ -72,11 +72,6 @@ var smtp = (function(){
                 'reconnect': true, 'resource': 'socket.io'
             } );
 
-            speaker.on( 'connect', function(){
-                speaker.send( 'The phone conneted server', function(){
-                } );
-            } );
-
             speaker.on( 'create ball', function( data ){
                 createBall();
             } );

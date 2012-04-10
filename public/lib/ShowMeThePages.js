@@ -71,6 +71,7 @@ var smtp = (function(){
             var speaker = io.connect( '/speaker', {
                 'reconnect': true, 'resource': 'socket.io'
             } );
+
             speaker.on( 'connect', function(){
                 speaker.send( 'The phone conneted server', function(){
                 } );

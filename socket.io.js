@@ -15,7 +15,7 @@ exports.init = function( app ){
 
     io.configure( function(){
         io.enable( 'browser client etag' );
-        io.set( 'log level', 3 );
+        io.set( 'log level', 2 );
         io.set( 'transports', [
             'websocket'
             , 'flashsocket'

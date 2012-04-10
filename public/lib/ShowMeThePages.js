@@ -86,23 +86,23 @@ var smtp = (function(){
 
     function addEventListenerIndex(){}
 
-    function addEventListenerListener(){
+    function addEventListenerAudience(){
         $().ready(function(){
-            var socket = io.connect( '', {
+            var audience = io.connect( '', {
                 'reconnect': true, 'resource': 'socket.io'
             } );
-            socket.on( 'connect', function(){
+            audience.on( 'connect', function(){
                 printMessage( 'connect to server' );
-                socket.send( 'a phone connected to server', function(){} );
+                audience.send( 'a phone connected to server', function(){} );
             } );
 
-            socket.on( 'message', function( msg ){
+            audience.on( 'message', function( msg ){
                 printMessage( msg );
             } );
 
             var btn = document.getElementsByTagName( 'button' )[0];
             btn.addEventListener( 'click', function(){
-                socket.emit( 'good slide', {good: true, text: 'good!!!'} )
+                audience.emit( 'good slide', {good: true, text: 'good!!!'} )
             } );
 
             //utillity
@@ -178,7 +178,7 @@ var smtp = (function(){
         }else if ( r.INDEX.test( router ) ){
             addEventListenerIndex();
         }else if( r.LISTENER.test( router ) ){
-            addEventListenerListener();
+            addEventListenerAudience();
         }else if( r.SLIDE.test( router ) ){
             addEventListenerSlide();
         }

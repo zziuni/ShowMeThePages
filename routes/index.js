@@ -2,7 +2,12 @@
 /*
  * GET home page.
  */
-var jqtpl = require('jqtpl');
+var jqtpl = require('jqtpl')
+    , clog = require('clog')
+    , pt = require('../presentation');
+
+clog.configure( {'log level': 5} );
+
 /*
  editSlide
  index
@@ -42,7 +47,8 @@ exports.updateSlide = function(req, res){
 };
 
 exports.showSlide = function(req, res){
-    require('../data_mongo').select(req.params.slideId,
+    var slideId = req.params.slideId;
+    require('../data_mongo').select(slideId,
         function(data){
             var ghm = require("github-flavored-markdown");
             var short = require('shorturl');
@@ -51,7 +57,7 @@ exports.showSlide = function(req, res){
             htmlContents = htmlContents.replace(/<hr \/>/gi, "</section>\n<section>");
             htmlContents  = "<Section>" + htmlContents  + "</Section>"
 
-            var mobileUrl = 'http://' + req.header('host') + '/m/' + req.params.slideId;
+            var mobileUrl = 'http://' + req.header('host') + '/m/' + slideId;
             short(mobileUrl, function(shortUrl){
                 console.log(shortUrl);
                 res.render('showSlide',
@@ -65,6 +71,13 @@ exports.showSlide = function(req, res){
 
         }
     );
+    if ( !pt.isShowRoom(slideId) ){
+        clog.debug('this showRoom was not. : ' + slideId );
+        pt.addShowRoom(slideId);
+    }else{
+        clog.debug('this showRoom was. : ' + slideId );
+    }
+
 };
 
 exports.insertSlide = function(req, res){

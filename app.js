@@ -57,4 +57,4 @@ app.listen(3100);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 //socket.io.js
-require('./socket.io').init(app);
+require('./smtp').init(app);

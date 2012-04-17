@@ -33,9 +33,9 @@ exports.init = function( app ){
             console.log( '=> A speaker disconnect.' );
         } );
 
-        speaker.on( 'good slid', function( data ){
+        speaker.on( 'good slide', function( data ){
             console.log( '=> spearker good slid' );
-            speaker.emit( 'create ball', {} );
+            speaker.volatile.emit( 'create ball', {} );
         } );
 
         speakerSocket = speaker;
@@ -55,7 +55,7 @@ exports.init = function( app ){
 
         audience.on( 'good slide', function( data ){
             if(speakerSocket){
-                speakerSocket.emit( 'create ball', {} );
+                speakerSocket.volatile.emit( 'create ball', {} );
             }
             audience.send( 'server: think you' );
         } );

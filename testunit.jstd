@@ -1,3 +1,6 @@
+#http://code.google.com/p/js-test-driver/wiki/ConfigurationFile
 load:
  - public/lib/*.js
+
+test:
  - test/*.js

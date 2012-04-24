@@ -13,7 +13,7 @@ var presentation = module.exports = {
     isShowRoom: function( slideId ){
         clog.debug('isShowRoom: ' + slideId );
         var showRooms = this.showRooms.filter( function( showRoom ){
-            return (showRoom === slideId );
+            return (showRoom.slide === slideId );
         } );
 
         if ( showRooms.length > 0 ){
@@ -25,6 +25,14 @@ var presentation = module.exports = {
 
     addShowRoom: function( slideId ){
         clog.debug( 'run addShowRoom:' + slideId );
-        this.showRooms.push( slideId );
+        this.showRooms.push( { slide: slideId, audiences:[] } );
+    },
+
+    getShowRoom: function( slideid ){
+        return this.showRooms.filter( function( showRoom ){
+            return ( showRoom.slide == slideid );
+        } );
     }
+
+
 };

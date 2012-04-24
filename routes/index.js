@@ -72,10 +72,10 @@ exports.showSlide = function(req, res){
         }
     );
     if ( !pt.isShowRoom(slideId) ){
-        clog.debug('this showRoom was not. : ' + slideId );
+        clog.debug('this showRoom was not. : ' + slideId + ' and add.' );
         pt.addShowRoom(slideId);
     }else{
-        clog.debug('this showRoom was. : ' + slideId );
+        clog.debug('this showRoom was. : ' + slideId + ' and do not add.' );
     }
 
 };

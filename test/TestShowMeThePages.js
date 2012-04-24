@@ -3,6 +3,7 @@ TestCase("fooTest", {
         this.obj = { foo:function(){return 'foo'}};
     },
     "test foo": function(){
+
         assertEquals('foo', this.obj.foo());
     }
 });

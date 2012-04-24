@@ -3,6 +3,7 @@
  * User: luigi.byun(@zziuni)
  * Date: 12. 4. 24.
  * Time: 오후 8:32
+ * https://github.com/caolan/nodeunit
  */
 var clog = require('clog');
 module.exports = {
@@ -24,11 +25,10 @@ module.exports = {
         test.done();
     },
     'getShowRoomTest': function( test ){
-        test.expect(2);
+        test.expect(1);
         var showRoomId = this.showRoomId;
         var pt = this.pt;
         var showRooms = pt.getShowRoom( showRoomId );
-        test.equal(showRooms[0].slide, showRoomId, 'no room');
         test.equal(showRooms[0].slide, showRoomId, 'no room');
         test.done();
     },

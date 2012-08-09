@@ -53,7 +53,7 @@ app.get('/remove/:slideId', routes.removeSlide);
 app.post('/insertSlide', routes.insertSlide);
 app.post('/updateSlide', routes.updateSlide)
 
-app.listen(9100);
+app.listen(9010);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 //socket.io.js

@@ -4,10 +4,12 @@
  * Date: 12. 3. 28.
  * Time: 오후 9:32
  */
-var mongo= require('mongolian');
-
-var server = new mongo();
-var objectId = mongo.ObjectId;
+var mongo= require('mongolian' )
+    , mongo_user = process.env['MONGODB_USER']
+    , mongo_pwd = process.env['MONGODB_PWD']
+    , mongo_port = process.env['MONGODB_PORT']
+    , db = new mongo('mongo://' + mongo_user + ':' + mongo_pwd + '@localhost:' + mongo_port + '/smtp_db' )
+    , objectId = mongo.ObjectId;
 //document define
 /*
 {
@@ -28,9 +30,6 @@ var objectId = mongo.ObjectId;
 }
 
 */
-
-//Get database
-var db = server.db("smtp_db");
 var slideshows = db.collection("slideshows");
 
 exports.insert = function( input, callback ){

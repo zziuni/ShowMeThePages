@@ -5,9 +5,10 @@
  * Time: 오전 12:45
  */
 var http = require( 'http' )
-        , fs = require( 'fs' )
-        , path = require( 'path' )
-        , sio = require( 'socket.io' );
+    , fs = require( 'fs' )
+    , path = require( 'path' )
+    , sio = require( 'socket.io' )
+    , clog = require('clog');
 
 var io;
 exports.init = function( app ){

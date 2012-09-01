@@ -4,7 +4,8 @@
  */
 var jqtpl = require('jqtpl')
     , clog = require('clog')
-    , pt = require('../presentation');
+    , pt = require('../presentation')
+    , socket = request('socket');
 
 clog.configure( {'log level': 5} );
 
@@ -47,9 +48,13 @@ exports.updateSlide = function(req, res){
 };
 
 exports.showSlide = function(req, res){
+
+    clog.debug('call showSlide');
+
     var slideId = req.params.slideId;
     require('../data_mongo').select(slideId,
         function(data){
+            clog.debug('mongo select callback');
             var ghm = require("github-flavored-markdown");
             var short = require('shorturl');
 
@@ -57,6 +62,10 @@ exports.showSlide = function(req, res){
             htmlContents = htmlContents.replace(/<hr \/>/gi, "</section>\n<section>");
             htmlContents  = "<Section>" + htmlContents  + "</Section>"
 
+            var a = socket.address();// req.connection.address();
+            for( o in a ){
+                clog.debug('now host name : '+  a[o]);
+            }
             var mobileUrl = 'http://' + req.header('host') + '/m/' + slideId;
             short(mobileUrl, function(shortUrl){
                 console.log(shortUrl);

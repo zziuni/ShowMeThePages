@@ -5,10 +5,16 @@
  * Time: 오후 9:32
  */
 var mongo= require('mongolian' )
+    , clog = require( 'clog' )
     , mongo_user = process.env['MONGODB_USER']
     , mongo_pwd = process.env['MONGODB_PWD']
-    , mongo_port = process.env['MONGODB_PORT']
-    , db = new mongo('mongo://' + mongo_user + ':' + mongo_pwd + '@localhost:' + mongo_port + '/smtp_db' )
+    , mongo_port = process.env['MONGODB_PORT'];
+
+clog.configure({'log level':5})
+
+clog.debug( 'mongo connect :' + mongo_user +', ' + mongo_pwd + ', ' + mongo_port );
+
+var db = new mongo('mongo://' + mongo_user + ':' + mongo_pwd + '@localhost:' + mongo_port + '/smtp_db' )
     , objectId = mongo.ObjectId;
 //document define
 /*

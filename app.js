@@ -58,5 +58,4 @@ app.post( '/updateSlide', routes.updateSlide );
 app.listen( port );
 console.log( "Express server listening on port %d in %s mode", app.address().port, app.settings.env );
 
-//socket.io.js
-require( './smtp' ).init( app );
+require( './src/smtp' ).init( app );

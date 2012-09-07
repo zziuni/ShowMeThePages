@@ -6,17 +6,20 @@
  */
 module.exports = {
     setUp: function( callback ){
+        "use strict";
         this.foo = true;
         callback();
     },
     'testFoo': function( test ){
-        test.expect(1);
-        test.ok(this.foo, 'good');
+        "use strict";
+        test.expect( 1 );
+        test.ok( this.foo, 'good' );
         test.done();
     },
 
     'testFoo3': function( test ){
-        test.ok(this.foo, 'good');
+        "use strict";
+        test.ok( this.foo, 'good' );
         test.done();
     }
 };

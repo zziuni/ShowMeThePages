@@ -8,12 +8,14 @@
 var clog = require('clog');
 module.exports = {
     setUp: function( callback ){
-        this.pt = require('../presentation');
+        "use strict";
+        this.pt = require('../../presentation');
         this.showRoomId = '1234567890';
         this.showRoomId2 = 'abcdefg';
         callback();
     },
     'addShowRoomTest': function( test ){
+        "use strict";
         test.expect(1);
         var pt = this.pt;
         var showRoomId = this.showRoomId;
@@ -33,6 +35,7 @@ module.exports = {
         test.done();
     },
     'isShowRoomTrueTest': function( test ){
+        "use strict";
         test.expect(1);
         var pt = this.pt;
         var result  = pt.isShowRoom(this.showRoomId);
@@ -40,6 +43,7 @@ module.exports = {
         test.done();
     },
     'isShowRoomFaleTest': function( test ){
+        "use strict";
         test.expect(1);
         var pt = this.pt;
         var result  = pt.isShowRoom(this.showRoomId2);

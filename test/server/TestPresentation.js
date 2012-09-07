@@ -27,6 +27,7 @@ module.exports = {
         test.done();
     },
     'getShowRoomTest': function( test ){
+        "use strict";
         test.expect(1);
         var showRoomId = this.showRoomId;
         var pt = this.pt;

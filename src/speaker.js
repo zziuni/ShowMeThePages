@@ -22,6 +22,6 @@ exports.setListener = function( io, callbackForAudience ){
             speaker.volatile.emit( 'create ball', {} );
         } );
 
-        callbackForAudience(io, speaker );
+        callbackForAudience( io, speaker );
     } );
 };

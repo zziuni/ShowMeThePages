@@ -1,16 +1,16 @@
 /**
  * Module dependencies.
  */
-"use strict";
-var express = require( 'express' )
-    , routes = require( './routes' )
-    , clog = require( 'clog' );
+var express = require( 'express' ),
+    routes = require( './routes' ),
+    clog = require( 'clog' );
 
 var port = process.argv.splice( 2 )[0] || 3000;
 
 Object.defineProperty( Object.prototype, "extend", {
     enumerable: false,
     value: function( from ){
+        "use strict";
         var props = Object.getOwnPropertyNames( from );
         var dest = this;
         props.forEach( function( name ){
@@ -27,6 +27,7 @@ var app = module.exports = express.createServer();
 
 // Configuration
 app.configure( function(){
+    "use strict";
     app.set( 'views', __dirname + '/views' );
     app.set( 'view engine', 'html' );
 
@@ -38,7 +39,7 @@ app.configure( function(){
 
 app.register( ".html", require( "jqtpl" ).express );
 
-if( 'development'==app.get( 'env' ) ){
+if( 'development' === app.get( 'env' ) ){
     app.use( express.errorHandler( { dumpExceptions: true, showStack: true } ) );
 }else{
     app.use( express.errorHandler() );

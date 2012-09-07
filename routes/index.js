@@ -5,7 +5,7 @@
 var jqtpl = require('jqtpl')
     , clog = require('clog')
     , pt = require('../presentation')
-    , socket = request('socket');
+//    , socket = require('socket');
 
 clog.configure( {'log level': 5} );
 
@@ -62,7 +62,7 @@ exports.showSlide = function(req, res){
             htmlContents = htmlContents.replace(/<hr \/>/gi, "</section>\n<section>");
             htmlContents  = "<Section>" + htmlContents  + "</Section>"
 
-            var a = socket.address();// req.connection.address();
+            var a = req.connection.address();
             for( o in a ){
                 clog.debug('now host name : '+  a[o]);
             }

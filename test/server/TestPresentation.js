@@ -5,7 +5,8 @@
  * Time: 오후 8:32
  * https://github.com/caolan/nodeunit
  */
-var clog = require('clog');
+var env = require('../env');
+
 module.exports = {
     setUp: function( callback ){
         "use strict";
@@ -21,7 +22,7 @@ module.exports = {
         var showRoomId = this.showRoomId;
         pt.addShowRoom( showRoomId);
         var showRooms = pt.showRooms.filter(function(showRoom){
-            return ( showRoom.slide == showRoomId );
+            return ( showRoom.slide === showRoomId );
         });
         test.equal( showRooms[0].slide, showRoomId, 'failur add room. ');
         test.done();

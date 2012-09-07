@@ -4,6 +4,8 @@
  * Date: 12. 4. 24.
  * Time: 오후 8:55
  */
+var env = require('../env');
+
 module.exports = {
     setUp: function( callback ){
         "use strict";

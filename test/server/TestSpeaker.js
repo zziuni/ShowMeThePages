@@ -4,17 +4,14 @@
  * Date: 12. 9. 7.
  * Time: 오후 6:57
  */
-var express = require('express');
-var sio = require('socket.io');
-var clog = require('clog');
+var env = require('../env');
 var speaker = require('../../src/speaker');
 
 module.exports = {
     setUp: function( callback ){
         "use strict";
-        var app = express.createServer();
-        var io = sio.listen( app );
-        this.io = io;
+        var app = env.express.createServer();
+        this.io = env.sio.listen( app );
         callback();
     },
 

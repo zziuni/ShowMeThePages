@@ -57,6 +57,6 @@ app.post( '/insertSlide', routes.insertSlide );
 app.post( '/updateSlide', routes.updateSlide );
 
 app.listen( port );
-//console.log( "Express server listening on port %d in %s mode", app.address().port, app.settings.env );
+console.log( "Express server listening on port %d in %s mode", app.address().port, app.settings.env );
 
 require( './src/smtp' ).init( app );

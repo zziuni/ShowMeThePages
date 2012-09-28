@@ -10,7 +10,7 @@ var Utillity = function(){
     "use strict";
 };
 
-var port = process.argv.splice( 2 )[0] || 3000;
+var port = process.argv[2] || 3000;
 
 Utillity.prototype.test = function(){
     "use strict";

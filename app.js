@@ -3,9 +3,10 @@
  */
 var express = require( 'express' ),
     routes = require( './routes' ),
-    env = require( './src/env' );
+    env = require( './src/env' ),
+    util = require( './src/utillity' );
 
-var port = process.argv.splice( 2 )[0] || 3000;
+var port = util.getPort();
 
 Object.defineProperty( Object.prototype, "extend", {
     enumerable: false,

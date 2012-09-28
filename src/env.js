@@ -5,5 +5,9 @@
  * Time: 오후 7:04
  */
 var clog = require( 'clog' );
+var utillity = require( './utillity' );
+
 clog.configure( {"log level": 5} );
+
 exports.log = clog;
+exports.util = utillity;

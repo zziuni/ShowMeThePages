@@ -3,6 +3,7 @@
  */
 var jqtpl = require( 'jqtpl' ),
     env = require( '../src/env' ),
+    util = require( '../src/utillity' ),
     pt = require( '../presentation' );
 //    , socket = require('socket');
 
@@ -65,13 +66,12 @@ exports.showSlide = function( req, res ){
             htmlContents = htmlContents.replace( /<hr \/>/gi, "</section>\n<section>" );
             htmlContents = "<Section>" + htmlContents + "</Section>";
 
-            var a = req.connection.address();
-            for( var o in a ){
-                if( a.hasOwnProperty( o ) ){
-                    env.log.debug( 'now host name : ' + a[o] );
-                }
+            var host = req.header( 'host' );
+            if( req.header( 'host' ).indexOf( 'localhost' ) === 0 ){
+                var localIps = util.getLocalIps();
+                host = localIps[0] + ':' + util.getPort();
             }
-            var mobileUrl = 'http://' + req.header( 'host' ) + '/m/' + slideId;
+            var mobileUrl = 'http://' + host + '/m/' + slideId;
             shorturl( mobileUrl, function( shortUrl ){
                 console.log( shortUrl );
                 res.render( 'showSlide',

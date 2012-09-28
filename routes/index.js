@@ -6,7 +6,7 @@ var jqtpl = require( 'jqtpl' ),
     pt = require( '../presentation' );
 //    , socket = require('socket');
 
-clog.prototype.configure( {'log level': 5} );
+clog.configure( {'log level': 5} );
 
 /*
  editSlide

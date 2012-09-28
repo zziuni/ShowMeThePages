@@ -8,15 +8,13 @@ var http = require( 'http' ),
     fs = require( 'fs' ),
     path = require( 'path' ),
     sio = require( 'socket.io' ),
-    clog = require( 'clog' ),
+    env = require( './env' ),
     speaker = require( './speaker' ),
     audience = require( './audience.js' );
 
-clog.configure( { "log level": 5} );
-
 exports.init = function( app ){
     "use strict";
-    clog.debug( 'call smtp#init()' );
+    env.log.debug( 'call smtp#init()' );
     var io = sio.listen( app );
 
     io.configure( function(){

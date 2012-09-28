@@ -4,8 +4,7 @@
  * Date: 12. 9. 5.
  * Time: 오후 11:11
  */
-var clog = require( 'clog' );
-clog.configure( {"log level": 5} );
+var env = require( './env' );
 
 exports.setListener = function( io, speaker ){
     "use strict";
@@ -13,12 +12,12 @@ exports.setListener = function( io, speaker ){
         audience.on( 'disconnect', function(){} );
 
         audience.on( 'message', function( msg ){
-            clog.debug( 'audience send message : ' + msg );
+            env.log.debug( 'audience send message : ' + msg );
             audience.send( 'server: ok.' );
         } );
 
         audience.on( 'good slide', function( data ){
-            clog.debug( 'audience is trigger good slide event : ' + data );
+            env.log.debug( 'audience is trigger good slide event : ' + data );
             if( speaker ){
                 speaker.volatile.emit( 'create ball', {} );
             }

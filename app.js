@@ -3,7 +3,7 @@
  */
 var express = require( 'express' ),
     routes = require( './routes' ),
-    clog = require( 'clog' );
+    env = require( './src/env' );
 
 var port = process.argv.splice( 2 )[0] || 3000;
 

@@ -2,11 +2,9 @@
  * GET home page.
  */
 var jqtpl = require( 'jqtpl' ),
-    clog = require( 'clog' ),
+    env = require( '../src/env' ),
     pt = require( '../presentation' );
 //    , socket = require('socket');
-
-clog.configure( {'log level': 5} );
 
 /*
  editSlide
@@ -54,12 +52,12 @@ exports.updateSlide = function( req, res ){
 
 exports.showSlide = function( req, res ){
     "use strict";
-    clog.debug( 'call showSlide' );
+    env.log.debug( 'call showSlide' );
 
     var slideId = req.params.slideId;
     require( '../data_mongo' ).select( slideId,
         function( data ){
-            clog.debug( 'mongo select callback' );
+            env.log.debug( 'mongo select callback' );
             var ghm = require( "github-flavored-markdown" );
             var shorturl = require( 'shorturl' );
 
@@ -70,7 +68,7 @@ exports.showSlide = function( req, res ){
             var a = req.connection.address();
             for( var o in a ){
                 if( a.hasOwnProperty( o ) ){
-                    clog.debug( 'now host name : ' + a[o] );
+                    env.log.debug( 'now host name : ' + a[o] );
                 }
             }
             var mobileUrl = 'http://' + req.header( 'host' ) + '/m/' + slideId;
@@ -88,10 +86,10 @@ exports.showSlide = function( req, res ){
         }
     );
     if( !pt.isShowRoom( slideId ) ){
-        clog.debug( 'this showRoom was not. : ' + slideId + ' and add.' );
+        env.log.debug( 'this showRoom was not. : ' + slideId + ' and add.' );
         pt.addShowRoom( slideId );
     }else{
-        clog.debug( 'this showRoom was. : ' + slideId + ' and do not add.' );
+        env.log.debug( 'this showRoom was. : ' + slideId + ' and do not add.' );
     }
 
 };
@@ -105,7 +103,7 @@ exports.insertSlide = function( req, res ){
 exports.removeSlide = function( req, res ){
     "use strict";
     require( '../data_mongo' ).remove( req.params.slideId, function(){
-        console.log( 'remove' );
+        env.log.log( 'remove' );
     } );
     res.render( 'redirectView', { path: '/slides' } );
 };

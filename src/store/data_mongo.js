@@ -5,14 +5,12 @@
  * Time: 오후 9:32
  */
 var mongo = require( 'mongolian' ),
-    clog = require( 'clog' ),
+    env = require( './../env' ),
     mongo_user = process.env.MONGODB_USER,
     mongo_pwd = process.env.MONGODB_PWD,
     mongo_port = process.env.MONGODB_PORT;
 
-clog.configure( {'log level': 5} );
-
-clog.debug( 'mongo connect :' + mongo_user + ', ' + mongo_pwd + ', ' + mongo_port );
+env.log.debug( 'mongo connect :' + mongo_user + ', ' + mongo_pwd + ', ' + mongo_port );
 
 var db = new mongo( 'mongo://' + mongo_user + ':' + mongo_pwd + '@localhost:' + mongo_port + '/smtp_db' ),
     AbjectId = mongo.ObjectId;
@@ -50,8 +48,10 @@ exports.insert = function( input, callback ){
         "pwd": ''
     };
 
-    slideshows.insert( slideshow, function( err, value ){ console.log( err );} );
-    callback();
+    slideshows.insert( slideshow, function( err, value ){
+        callback();
+    } );
+
 };
 
 exports.selectAll = function( callback ){
@@ -80,7 +80,7 @@ exports.select = function( slideId, callback ){
     "use strict";
     var sid = new AbjectId( slideId );
     slideshows.findOne( {"_id": sid }, function( err, data ){
-        if( err ){ console.log( err ); }
+        if( err ){ env.log.error( 'Error: can not select on DB:', err ); }
         callback( data );
     } );
 };
@@ -89,26 +89,16 @@ exports.remove = function( slideId, callback ){
     "use strict";
     var sid = new AbjectId( slideId );
     slideshows.remove( {"_id": sid }, function( err, data ){
-            if( err ){ console.log( err );}
+            if( err ){ env.log.error( 'Error: can not remove on DB: ', err );}
             callback( data );
         }
     );
-};
-
-exports.editSlide = function( slideId, callback ){
-    "use strict";
-    var sid = new AbjectId( slideId );
-    slideshows.findOne( {"_id": sid }, function( err, data ){
-        if( err ){ console.log( err ); }
-        callback( data );
-    } );
 };
 
 exports.update = function( source, callback ){
     "use strict";
     var sid = new AbjectId( source.id );
     slideshows.findOne( {"_id": sid }, function( err, target ){
-        console.log( target );
         target.title = source.title;
         target.mdContents = source.mdContents;
         target.modifiedDate = new Date();
@@ -119,32 +109,3 @@ exports.update = function( source, callback ){
     } );
 
 };
-
-/*
- // Insert some data
- posts.insert({
- pageId: "hallo",
- title: "Hallo",
- created: new Date,
- body: "Welcome to my new blog!"
- })
-
- // Get a single document
- posts.findOne({ pageId: "hallo" }, function(err, post) {
- //...
- })
-
- // Document cursors
- posts.find().limit(5).sort({ created: 1 }).toArray(function (err, array) {
- // do something with the array
- })
- posts.find({ title: /^hal/ }).forEach(function (post) {
- // do something with a single post
- }, function(err) {
- // handle errors/completion
- })
-
-
- //exports.createConnect = createConnect;
-
- */

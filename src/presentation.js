@@ -4,15 +4,13 @@
  * Date: 12. 4. 17.
  * Time: 오후 8:37
  */
-var clog = require( 'clog' );
-clog.configure( {'log level': 5} );
-//=> {'log': true, 'info': true, 'warn': true, 'error': false, 'debug': false}
+var env = require('./env.js');
 
 var presentation = module.exports = {
     showRooms: [],
     isShowRoom: function( slideId ){
         "use strict";
-        clog.debug( 'isShowRoom: ' + slideId );
+        env.log.debug( 'isShowRoom: ' + slideId );
         var showRooms = this.showRooms.filter( function( showRoom ){
             return (showRoom.slide === slideId );
         } );
@@ -21,7 +19,7 @@ var presentation = module.exports = {
 
     addShowRoom: function( slideId ){
         "use strict";
-        clog.debug( 'run addShowRoom:' + slideId );
+        env.log.debug( 'run addShowRoom:' + slideId );
         this.showRooms.push( { slide: slideId, audiences: [] } );
     },
 

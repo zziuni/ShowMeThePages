@@ -10,7 +10,7 @@ var env = require('../env');
 module.exports = {
     setUp: function( callback ){
         "use strict";
-        this.pt = require('../../presentation');
+        this.pt = require('../../src/presentation');
         this.showRoomId = '1234567890';
         this.showRoomId2 = 'abcdefg';
         callback();

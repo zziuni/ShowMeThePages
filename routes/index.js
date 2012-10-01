@@ -4,7 +4,8 @@
 var jqtpl = require( 'jqtpl' ),
     env = require( '../src/env' ),
     util = require( '../src/utillity' ),
-    pt = require( '../presentation' );
+    pt = require( '../src/presentation' ),
+    store = require( '../src/store/smtpStore.js');
 //    , socket = require('socket');
 
 /*
@@ -20,71 +21,87 @@ var jqtpl = require( 'jqtpl' ),
  */
 exports.index = function( req, res ){
     "use strict";
-    res.render( 'index', { title: 'SMTP Overview', menu1Cls: 'active'} );
+    var render = {
+        title: 'SMTP Overview',
+        menu1Cls: 'active'
+    };
+    res.render( 'index', render );
 };
 
 exports.newSlide = function( req, res ){
     "use strict";
-    res.render( 'newSlide', {title: 'New Slide', menu3Cls: 'active'} );
+    var render = {
+        title: 'New Slide',
+        menu3Cls: 'active'
+    };
+    res.render( 'newSlide', render );
 };
 
 exports.slides = function( req, res ){
     "use strict";
-    var slideshows = require( '../data_mongo' ).selectAll( function( data ){
-        res.render( 'slides', { title: 'Slide List', menu4Cls: 'active', slideshows: data } );
-    } );
 
+    var runRender = function( data ){
+        var render = {
+            title: 'Slide List',
+            menu4Cls: 'active',
+            slideshows: data
+        };
+        res.render( 'slides', render );
+    };
+    store.selectAll( runRender );
 };
 
 exports.editSlide = function( req, res ){
     "use strict";
-    require( '../data_mongo' ).select( req.params.slideId, function( data ){
-        res.render( 'editSlide',
-            {title: 'Edit Slide', menu2Cls: 'active', id: data._id, slideTitle: data.title, mdContents: data.mdContents} ); //
-    } );
+    var id = req.params.slideId;
+    var runRender = function( data ){
+        var render = {
+            title: 'Edit Slide',
+            menu2Cls: 'active',
+            id: data._id,
+            slideTitle: data.title,
+            mdContents: data.mdContents
+        };
+        res.render( 'editSlide', render );
+    };
+    store.selectOne( id, runRender );
 };
 
 exports.updateSlide = function( req, res ){
     "use strict";
-    require( '../data_mongo' ).update( req.body, function( data ){
-        res.render( 'redirectView', { path: '/slides' } );
-    } );
+    var runRender = function( data ){
+        var render = {
+            path: '/slides'
+        };
+        res.render( 'redirectView', render );
+    };
+    store.updateOne( req.body, runRender );
 };
 
 exports.showSlide = function( req, res ){
     "use strict";
-    env.log.debug( 'call showSlide' );
-
     var slideId = req.params.slideId;
-    require( '../data_mongo' ).select( slideId,
-        function( data ){
-            env.log.debug( 'mongo select callback' );
-            var ghm = require( "github-flavored-markdown" );
-            var shorturl = require( 'shorturl' );
+    var runRender =  function( data ){
+        var htmlContents = env.util.makeHtmlFromMarkdown( data.mdContents );
+        var host = req.header( 'host' );
 
-            var htmlContents = ghm.parse( data.mdContents );
-            htmlContents = htmlContents.replace( /<hr \/>/gi, "</section>\n<section>" );
-            htmlContents = "<Section>" + htmlContents + "</Section>";
+        host = env.util.getMybeLocalHost( host );
+        var mobileUrl = 'http://' + host + '/m/' + slideId;
 
-            var host = req.header( 'host' );
-            if( req.header( 'host' ).indexOf( 'localhost' ) === 0 ){
-                var localIps = util.getLocalIps();
-                host = localIps[0] + ':' + util.getPort();
-            }
-            var mobileUrl = 'http://' + host + '/m/' + slideId;
-            shorturl( mobileUrl, function( shortUrl ){
-                console.log( shortUrl );
-                res.render( 'showSlide',
-                    {
-                        title: 'Slide Title',
-                        shortUrl: shortUrl,
-                        slideTitle: data.title,
-                        contents: htmlContents
-                    } );
-            } );
+        var callback = function( shortUrl ){
+            var render = {
+                title: 'Slide Title',
+                shortUrl: shortUrl,
+                slideTitle: data.title,
+                contents: htmlContents
+            };
+            res.render( 'showSlide', render );
+        };
+        env.util.getShortUrl( mobileUrl, callback );
+    };
 
-        }
-    );
+    store.selectOne( slideId, runRender );
+
     if( !pt.isShowRoom( slideId ) ){
         env.log.debug( 'this showRoom was not. : ' + slideId + ' and add.' );
         pt.addShowRoom( slideId );
@@ -96,16 +113,25 @@ exports.showSlide = function( req, res ){
 
 exports.insertSlide = function( req, res ){
     "use strict";
-    require( '../data_mongo' ).insert( req.body, function(){} );
-    res.render( 'redirectView', { path: '/slides'} );
+    var runRender = function(){
+        var render = {
+            path: '/slides'
+        };
+        res.render( 'redirectView', render );
+    };
+    store.insert( req.body, runRender );
 };
 
 exports.removeSlide = function( req, res ){
     "use strict";
-    require( '../data_mongo' ).remove( req.params.slideId, function(){
-        env.log.log( 'remove' );
-    } );
-    res.render( 'redirectView', { path: '/slides' } );
+    var runRender = function(){
+        env.log.info( 'removed' );
+        var render = {
+            path: '/slides'
+        };
+        res.render( 'redirectView', render );
+    };
+    store.remove( req.params.slideId, runRender );
 };
 
 exports.mobilePoll = function( req, res ){

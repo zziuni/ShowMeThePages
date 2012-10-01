@@ -8,6 +8,7 @@
  */
 
 var smtp = (function(){
+    "use strict";
     var version = '0.1';
 
     var _this = {
@@ -51,21 +52,24 @@ var smtp = (function(){
     function addEventListenerSlide(){
         $().ready( function(){
             //setting reveal.js
-            var query = {};
-            location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function( a ){
-                query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
-            } );
-
-            Reveal.initialize( {
+            Reveal.initialize({
                 controls: true,
                 progress: true,
                 history: true,
-                rollingLinks: true,
-                theme: query.theme || 'default', // default || neon
-                transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
-            } );
 
-            hljs.initHighlightingOnLoad();
+                theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: '/lib/reveal2/lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+                    { src: '/lib/reveal2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: '/lib/reveal2/lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '/lib/reveal2/lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+                    { src: '/lib/reveal2/plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } }
+                ]
+            });
 
             //after load socket.io
             var speaker = io.connect( '/speaker', {

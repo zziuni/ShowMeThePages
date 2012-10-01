@@ -32,7 +32,7 @@ Store.prototype.insert = function( body, callback){
 
 Store.prototype.remote = function( id, callback ){
     "use strict";
-    mongod.remote( id, callback );
+    mongod.remove( id, callback );
 };
 
 module.exports = new Store();

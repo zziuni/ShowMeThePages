@@ -64,12 +64,14 @@ var smtp = (function(){
                 dependencies: [
                     { src: '/lib/reveal2/lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
                     { src: '/lib/reveal2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                    { src: '/lib/reveal2/lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: '/lib/reveal2/lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
-                    { src: '/lib/reveal2/plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } }
+//                    { src: '/lib/reveal2/lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+//                    { src: '/lib/reveal2/lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+//                    { src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+//                    { src: '/lib/reveal2/plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } }
                 ]
             });
+
+            dviz.run();
 
             //code editor highlight
             $('pre code').each(function(i, e) {

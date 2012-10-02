@@ -9,6 +9,48 @@
 
 /* For overriding dviz */
 .dviz-content svg.sparkline line {
-    stroke: #cc1930;
+    stroke: #c3fffd;
     stroke-width: 2px;
+}
+
+table{
+    color: #333;
+    font-size: 16px;
+}
+
+.row-fluid {
+    width: 100%;
+}
+
+.row-fluid::before, .row-fluid::after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+.row-fluid::after {
+    clear: both;
+}
+
+.span3 {
+    width: 220px;
+}
+
+.row-fluid [class*="span"] {
+    display: block;
+    float: left;
+    width: 100%;
+    min-height: 30px;
+    margin-left: 2.127659574468085%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.row-fluid [class*="span"]:first-child {
+    margin-left: 0;
+}
+
+.row-fluid .span3 {
+    width: 23.404255319148934%;
 }

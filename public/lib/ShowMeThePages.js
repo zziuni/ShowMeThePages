@@ -71,6 +71,13 @@ var smtp = (function(){
                 ]
             });
 
+            //code editor highlight
+            $('pre code').each(function(i, e) {
+                e.addEventListener('blur', function(e){
+                    hljs.highlightBlock( e.target );
+                });
+            });
+
             //after load socket.io
             var speaker = io.connect( '/speaker', {
                 'reconnect': true, 'resource': 'socket.io'

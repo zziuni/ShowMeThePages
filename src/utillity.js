@@ -65,6 +65,7 @@ Utillity.prototype.makeHtmlFromMarkdown = function( markdown ){
     if( !markdown ){ return false; }
     var html = convertToHtmlFromMarkdown( markdown );
     html = html.replace( /<hr \/>/gi, "</section>\n<section>" );
+    html = html.replace( /<code>/gi, "<code contenteditable>" );
     html = "<Section>" + html + "</Section>";
     return html;
 };

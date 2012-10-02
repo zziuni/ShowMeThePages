@@ -43,14 +43,14 @@ function init() {
 
 	canvas = document.getElementById( 'canvas' );
 
-	document.onmousedown = onDocumentMouseDown;
-	document.onmouseup = onDocumentMouseUp;
-	document.onmousemove = onDocumentMouseMove;
+//	document.onmousedown = onDocumentMouseDown;
+//	document.onmouseup = onDocumentMouseUp;
+//	document.onmousemove = onDocumentMouseMove;
 //	document.ondblclick = onDocumentDoubleClick;
 
-	document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-	document.addEventListener( 'touchmove', onDocumentTouchMove, false );
-	document.addEventListener( 'touchend', onDocumentTouchEnd, false );
+//	document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+//	document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+//	document.addEventListener( 'touchend', onDocumentTouchEnd, false );
 
 	window.addEventListener( 'deviceorientation', onWindowDeviceOrientation, false );
 
@@ -476,7 +476,7 @@ function setWalls() {
 		world.DestroyBody(walls[2]);
 		world.DestroyBody(walls[3]);
 
-		walls[0] = null; 
+		walls[0] = null;
 		walls[1] = null;
 		walls[2] = null;
 		walls[3] = null;
@@ -485,7 +485,7 @@ function setWalls() {
 	walls[0] = createBox(world, stage[2] / 2, - wall_thickness, stage[2], wall_thickness);
 	walls[1] = createBox(world, stage[2] / 2, stage[3] + wall_thickness, stage[2], wall_thickness);
 	walls[2] = createBox(world, - wall_thickness, stage[3] / 2, wall_thickness, stage[3]);
-	walls[3] = createBox(world, stage[2] + wall_thickness, stage[3] / 2, wall_thickness, stage[3]);	
+	walls[3] = createBox(world, stage[2] + wall_thickness, stage[3] / 2, wall_thickness, stage[3]);
 
 	wallsSetted = true;
 

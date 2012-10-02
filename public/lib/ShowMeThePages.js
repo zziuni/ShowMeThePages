@@ -71,6 +71,7 @@ var smtp = (function(){
                 ]
             });
 
+            //setting dviz
             dviz.run();
 
             //code editor highlight

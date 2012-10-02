@@ -1,0 +1,14 @@
+/*body {*/
+  /*padding: 50px;*/
+  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+/*}*/
+
+/*a {*/
+  /*color: #00B7FF;*/
+/*}*/
+
+/* For overriding dviz */
+.dviz-content svg.sparkline line {
+    stroke: #cc1930;
+    stroke-width: 2px;
+}

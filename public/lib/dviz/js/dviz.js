@@ -53,11 +53,13 @@ var load_req = function(jsid, callback) {
 load_req.loaders = {
     'd3': {
         'url': 'http://d3js.org/d3.v2.min.js',
+//        'url': '/lib/d3/d3.v2.min.js',
         'check': function() {return !!window['d3'];},
         'callback': function(cb) {cb();}
     },
     'google-viz': {
         'url': 'https://www.google.com/jsapi',
+//        'url': '/lib/google/jsapi.js',
         'check': function() {return !!window['google'];},
         'callback': function(cb) {
             google.load('visualization', '1.0', {
@@ -68,6 +70,7 @@ load_req.loaders = {
     },
     'opt_graph': {
         'url': 'http://akngs.github.com/dviz/js/opt_graph.js',
+//        'url': '/lib/dviz/js/opt_graph.js',
         'check': function() {return !!dviz.opt['graph'];},
         'callback': function(cb) {cb();}
     }

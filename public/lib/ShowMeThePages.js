@@ -30,6 +30,92 @@ var smtp = (function(){
         return path;
     }
 
+    var isInitalizedReveal = false;
+    var intervalNumForReveal;
+    function maybyLoadData(){
+        var isGenerate = isDvizChart();
+        if( isGenerate && !isInitalizedReveal ){
+            isInitalizedReveal = false;
+            clearInterval( intervalNumForReveal );
+            appendRevealCss();
+            initReveal();
+            applyHighlightCode();
+            console.log( 'generated slide' );
+        }
+    }
+
+    function applyHighlightCode(){
+        try{
+            $('pre code').each(function(i, e) {
+                hljs.highlightBlock( e );
+            });
+        }catch( e ){
+            setTimeout( applyHighlightCode, 500);
+        }
+    }
+
+    function presetChartWidth(){
+        var max = 1436;                     // 13' air LCD width.
+        var docWidth = document.width;
+        var x = 1 - docWidth / max ;
+
+        x = (x === 0 )? 0.1 : x;
+        var width = (1/x) * 50 ;
+
+        $('.reveal .slides section' ).css('margin-right', width );
+    }
+
+    function appendRevealCss(){
+        var cssUrls = [
+            '/lib/reveal2/css/main.css',
+            '/lib/reveal2/css/theme/default.css',
+            '/lib/reveal2/lib/css/zenburn.css'
+        ];
+        var links =[];
+        cssUrls.forEach( function( url ){
+            var link = $('<link rel="stylesheet">');
+            link.attr('href', url );
+            links.push( link );
+        });
+        $('head' ).append( links );
+    }
+
+    function initReveal(){
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+
+            theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: '/lib/reveal2/lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+                { src: '/lib/reveal2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+//                    { src: '/lib/reveal2/lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+//                    { src: '/lib/reveal2/lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+//                    { src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+//                    { src: '/lib/reveal2/plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } }
+            ]
+        })
+
+    }
+
+    function isDvizChart(){
+        var content_selector = '.dviz-content';
+        var code_selector = '*:not(pre) > code';
+        var p = /(.*)\(@(\w.+?)?\s?(\{.+\})?\)$/;
+
+        // find declarations
+        var $targets = $(content_selector + ' ' + code_selector).filter(function() {
+            var $this = $(this);
+            return !!$(this).text().match(p);
+        });
+
+        return !($targets.length);
+    }
+
     function addEventListenerSlides(){
         $('.del').on('click', function(){
             var id = $(this).attr('data-id');
@@ -51,36 +137,6 @@ var smtp = (function(){
 
     function addEventListenerSlide(){
         $().ready( function(){
-            //setting reveal.js
-            Reveal.initialize({
-                controls: true,
-                progress: true,
-                history: true,
-
-                theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
-                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
-
-                // Optional libraries used to extend on reveal.js
-                dependencies: [
-                    { src: '/lib/reveal2/lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
-                    { src: '/lib/reveal2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-//                    { src: '/lib/reveal2/lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-//                    { src: '/lib/reveal2/lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-//                    { src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
-//                    { src: '/lib/reveal2/plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } }
-                ]
-            });
-
-            //setting dviz
-            dviz.run();
-
-            //code editor highlight
-            $('pre code').each(function(i, e) {
-                e.addEventListener('blur', function(e){
-                    hljs.highlightBlock( e.target );
-                });
-            });
-
             //after load socket.io
             var speaker = io.connect( '/speaker', {
                 'reconnect': true, 'resource': 'socket.io'
@@ -90,7 +146,20 @@ var smtp = (function(){
                 createBall();
             } );
 
+            //setting dviz
+            presetChartWidth();
+            dviz.run();
 
+            //setting reveal.js
+            maybyLoadData();
+            intervalNumForReveal = setInterval( maybyLoadData, 1000 );
+
+            //code editor highlight
+            $('pre code').each(function(i, e) {
+                e.addEventListener('blur', function(e){
+                    hljs.highlightBlock( e.target );
+                });
+            });
         } );
     }
 

@@ -8,7 +8,7 @@ var env = require( './env' );
 
 exports.setListener = function( io, speaker ){
     "use strict";
-    io.sockets.on( 'connection', function( audience ){
+    io.of('/audience').on( 'connection', function( audience ){
         audience.on( 'disconnect', function(){} );
 
         audience.on( 'message', function( msg ){

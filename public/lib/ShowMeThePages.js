@@ -171,7 +171,7 @@ var smtp = (function(){
 
     function addEventListenerAudience(){
         $().ready(function(){
-            var audience = io.connect( '', {
+            var audience = io.connect( '/audience', {
                 'reconnect': true, 'resource': 'socket.io'
             } );
             audience.on( 'connect', function(){
@@ -185,7 +185,7 @@ var smtp = (function(){
 
             var btn = document.getElementsByTagName( 'button' )[0];
             btn.addEventListener( 'click', function(){
-                audience.emit( 'good slide', {good: true, text: 'good!!!'} )
+                audience.emit( 'good slide', {good: true, text: 'good!!!'} );
             } );
 
             //utillity

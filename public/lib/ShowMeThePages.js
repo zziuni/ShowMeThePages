@@ -143,7 +143,9 @@ var smtp = (function(){
             } );
 
             speaker.on( 'create ball', function( data ){
+                console.log( 'created ball');
                 createBall();
+                speaker.emit('think you', function(){} );
             } );
 
             //setting dviz
@@ -185,6 +187,7 @@ var smtp = (function(){
 
             var btn = document.getElementsByTagName( 'button' )[0];
             btn.addEventListener( 'click', function(){
+                console.log('click');
                 audience.emit( 'good slide', {good: true, text: 'good!!!'} );
             } );
 

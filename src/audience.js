@@ -13,15 +13,14 @@ exports.setListener = function( io, speaker ){
 
         audience.on( 'message', function( msg ){
             env.log.debug( 'audience send message : ' + msg );
-            audience.send( 'server: ok.' );
         } );
 
         audience.on( 'good slide', function( data ){
-            env.log.debug( 'audience is trigger good slide event : ' + data );
             if( speaker ){
+                env.log.debug( 'audience is trigger good slide event : ' + data );
                 speaker.volatile.emit( 'create ball', {} );
+                audience.send( 'sever: think you' );
             }
-            audience.send( 'sever: think you' );
         } );
     } );
 };

@@ -26,7 +26,7 @@ exports.setListener = function( io, speaker ){
 
                 speaker.volatile.emit( 'create ball', { count : pt.addAdience( data.id ) } );
 
-                audience.send( 'sever: think you' );
+//                audience.send( 'sever: think you' );
             }
         } );
     } );

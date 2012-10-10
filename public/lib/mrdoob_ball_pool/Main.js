@@ -71,7 +71,7 @@ function play() {
     //TODO: change requestRunProject.
     //TODO: change remove timer.
 	setInterval( loop, 1000 / 40 );
-	setInterval( removeBall, 1000*60*2);
+	setInterval( removeBall, 1000*60);
 
 }
 

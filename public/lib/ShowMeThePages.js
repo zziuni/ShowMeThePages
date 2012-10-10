@@ -116,8 +116,9 @@ var smtp = (function(){
         return !($targets.length);
     }
 
+    var currentCounter = 0;
     function setCountForGood( count ){
-        $('.count' ).text(count);
+        $('.count' ).text(++currentCounter);
     }
 
     function addEventListenerSlides(){
@@ -183,6 +184,12 @@ var smtp = (function(){
             audience.on( 'connect', function(){
                 printMessage( 'connect to server' );
                 audience.send( 'a phone connected to server', function(){} );
+                $('#good' ).attr('disabled', false );
+            } );
+
+            audience.on( 'disconnect', function(){
+                printMessage( 'disconnected to server' );
+                $('#good' ).attr('disabled', true );
             } );
 
             audience.on( 'message', function( msg ){

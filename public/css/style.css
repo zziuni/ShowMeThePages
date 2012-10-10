@@ -49,3 +49,13 @@ table{
 .row-fluid .span3 {
     width: 23.404255319148934%;
 }
+.count {
+    font-size: 12px;
+    position: fixed;
+    width: 100px;
+    height: 20px;
+    z-index: 30;
+    padding-left: 10px;
+    /*right: 0;*/
+    bottom: 0;
+}

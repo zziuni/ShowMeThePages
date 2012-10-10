@@ -15,10 +15,10 @@ exports.setListener = function( io, callbackForAudience ){
             env.log.debug( '=> A speaker disconnect.' );
         } );
 
-        speaker.on( 'good slide', function( data ){
-            env.log.debug( 'speaker is trigger ' );
-            speaker.volatile.emit( 'create ball', {} );
-        } );
+//        speaker.on( 'good slide', function( data ){
+//            env.log.debug( 'speaker is trigger ' );
+//            speaker.volatile.emit( 'create ball', {} );
+//        } );
 
         callbackForAudience( io, speaker );
     } );

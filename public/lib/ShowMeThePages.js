@@ -116,6 +116,10 @@ var smtp = (function(){
         return !($targets.length);
     }
 
+    function setCountForGood( count ){
+        $('.count' ).text(count);
+    }
+
     function addEventListenerSlides(){
         $('.del').on('click', function(){
             var id = $(this).attr('data-id');
@@ -143,9 +147,9 @@ var smtp = (function(){
             } );
 
             speaker.on( 'create ball', function( data ){
-                console.log( 'created ball');
+                console.log( 'created ball' , data.count );
                 createBall();
-                speaker.emit('think you', function(){} );
+                setCountForGood( data.count );
             } );
 
             //setting dviz
@@ -186,9 +190,10 @@ var smtp = (function(){
             } );
 
             var btn = document.getElementsByTagName( 'button' )[0];
+            var id = $('#good').data('id');
             btn.addEventListener( 'click', function(){
                 console.log('click');
-                audience.emit( 'good slide', {good: true, text: 'good!!!'} );
+                audience.emit( 'good slide', { good: true, text: 'good!!!', id: id } );
             } );
 
             //utillity

@@ -20,7 +20,7 @@ var presentation = module.exports = {
     addShowRoom: function( slideId ){
         "use strict";
         env.log.debug( 'run addShowRoom:' + slideId );
-        this.showRooms.push( { slide: slideId, audiences: [] } );
+        this.showRooms.push( { slide: slideId, audiences: 0 } );
     },
 
     getShowRoom: function( slideid ){
@@ -28,6 +28,19 @@ var presentation = module.exports = {
         return this.showRooms.filter( function( showRoom ){
             return ( showRoom.slide === slideid );
         } );
+    },
+
+    addAdience: function( slideId ){
+        "use strict";
+        var showRoom = this.getShowRoom( slideId );
+        env.log.debug( 'call addAdience:' + slideId );
+        env.log.debug( showRoom );
+        var count = 0;
+        if( showRoom.length > 0 ){
+            count = showRoom[0].audiences++;
+            env.log.debug( showRoom[0].audiences + ' as slide: ' + showRoom[0].slide );
+        }
+        return count;
     }
 
 

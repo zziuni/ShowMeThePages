@@ -136,5 +136,10 @@ exports.removeSlide = function( req, res ){
 
 exports.mobilePoll = function( req, res ){
     "use strict";
-    res.render( 'mobilePoll', {title: 'title'} );
+    var id = req.params.slideId;
+    var render = {
+        title: 'title',
+        id: id
+    };
+    res.render( 'mobilePoll', render );
 };

@@ -17,7 +17,7 @@ exports.init = function( app ){
     env.log.debug( 'call smtp#init()' );
     var io = sio.listen( app );
 
-    io.configure( function(){
+    /*io.configure( function(){
         io.enable( 'browser client etag' );
         io.set( 'log level', 2 );
         io.set( 'transports', [
@@ -27,7 +27,7 @@ exports.init = function( app ){
             'xhr-polling',
             'jsonp-polling'
         ] );
-    } );
+    } );*/
 
     speaker.setListener( io, audience.setListener );
 };
